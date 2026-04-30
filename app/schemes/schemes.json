@@ -1,0 +1,338 @@
+{
+  "schemes": [
+    {
+      "id": "pm_kisan",
+      "name": "PM-Kisan Samman Nidhi",
+      "category": "agricultural",
+      "last_verified": "2025-11-01",
+      "source_text": "All landholding farmer families with cultivable land less than 2 hectares are eligible, provided they are not government employees, income tax payers, or institutional landholders. Source: pmkisan.gov.in official guidelines.",
+      "description": "Annual financial assistance of Rs 6000 to eligible farmer families in three installments of Rs 2000 each, transferred directly to bank account.",
+      "eligibility": {
+        "occupation": ["farmer"],
+        "max_land_hectares": 2.0,
+        "requires_land_ownership": true,
+        "requires_bank_account": true,
+        "requires_aadhaar": true,
+        "excluded": [
+          "government employees",
+          "income tax payers",
+          "institutional landholders",
+          "constitutional post holders",
+          "retired pensioners earning above Rs 10000/month"
+        ]
+      },
+      "documents_required": [
+        "Aadhaar card",
+        "Land ownership records (Khatoni / Jamabandi)",
+        "Bank account passbook",
+        "Mobile number linked to Aadhaar"
+      ],
+      "benefit": "Rs 6000 per year in three installments of Rs 2000 directly to bank account",
+      "portal": "https://pmkisan.gov.in",
+      "helpline": "155261",
+      "application_mode": "Online via pmkisan.gov.in or through local Patwari / Common Service Centre"
+    },
+    {
+      "id": "pm_fasal_bima",
+      "name": "PM Fasal Bima Yojana",
+      "category": "agricultural",
+      "last_verified": "2025-10-15",
+      "source_text": "All farmers including sharecroppers and tenant farmers growing notified crops in notified areas are eligible. Enrollment must happen before the crop season cutoff date. Source: pmfby.gov.in official scheme guidelines.",
+      "description": "Crop insurance scheme providing financial support to farmers suffering crop loss or damage due to unforeseen natural calamities, pests, or diseases.",
+      "eligibility": {
+        "occupation": ["farmer", "sharecropper", "tenant farmer"],
+        "requires_land_ownership": false,
+        "requires_bank_account": true,
+        "requires_aadhaar": true,
+        "enrollment_timing": "Must enroll before crop season cutoff — Kharif by July 31, Rabi by December 31",
+        "note": "Tenant farmers and sharecroppers are explicitly eligible with tenancy agreement"
+      },
+      "documents_required": [
+        "Aadhaar card",
+        "Bank account passbook",
+        "Land records or tenancy agreement",
+        "Sowing certificate from Patwari",
+        "Mobile number"
+      ],
+      "benefit": "Full compensation for crop loss based on insured sum. Premium: 2% for Kharif, 1.5% for Rabi, 5% for commercial crops",
+      "portal": "https://pmfby.gov.in",
+      "helpline": "1800-180-1551",
+      "application_mode": "Through bank branch, insurance company, or Common Service Centre before season cutoff"
+    },
+    {
+      "id": "kisan_credit_card",
+      "name": "Kisan Credit Card",
+      "category": "agricultural",
+      "last_verified": "2025-09-01",
+      "source_text": "Farmers, fishermen, and animal husbandry workers are eligible for short-term credit at subsidized interest rates. Credit limit is based on land holding and crop pattern. Source: RBI and NABARD KCC scheme guidelines.",
+      "description": "Provides farmers with timely credit for agricultural needs including seeds, fertilizers, pesticides, and farm maintenance at subsidized interest rates.",
+      "eligibility": {
+        "occupation": ["farmer", "fisherman", "animal husbandry worker"],
+        "requires_land_ownership": false,
+        "requires_bank_account": true,
+        "requires_aadhaar": true,
+        "note": "Tenant farmers, oral lessees, and share croppers also eligible"
+      },
+      "documents_required": [
+        "Aadhaar card",
+        "PAN card or Form 60",
+        "Land records or tenancy agreement",
+        "Passport size photograph",
+        "Bank account details"
+      ],
+      "benefit": "Credit up to Rs 3 lakh at 7% interest rate (4% with prompt repayment subsidy). Higher limits for larger holdings",
+      "portal": "https://www.nabard.org/content1.aspx?id=572",
+      "helpline": "1800-180-1551",
+      "application_mode": "Apply at nearest bank branch — SBI, cooperative bank, or regional rural bank"
+    },
+    {
+      "id": "mgnrega",
+      "name": "MGNREGA",
+      "category": "livelihood",
+      "last_verified": "2025-10-01",
+      "source_text": "Any adult member of a rural household willing to do unskilled manual work is entitled to 100 days of guaranteed wage employment per year. Job card is mandatory. Source: MGNREGA Act 2005 and nrega.nic.in.",
+      "description": "Guarantees 100 days of wage employment per financial year to rural households whose adult members volunteer to do unskilled manual work at minimum wage.",
+      "eligibility": {
+        "residence": ["rural"],
+        "age_min": 18,
+        "requires_job_card": true,
+        "occupation": ["any rural adult willing to do manual work"],
+        "note": "No income or land criteria — any rural adult household qualifies"
+      },
+      "documents_required": [
+        "Aadhaar card",
+        "Residence proof (voter ID or ration card)",
+        "Apply for Job Card at local Gram Panchayat — free of cost"
+      ],
+      "benefit": "100 days guaranteed wage employment per year at state minimum wage. Payment within 15 days directly to bank or post office account",
+      "portal": "https://nrega.nic.in",
+      "helpline": "1800-111-555",
+      "application_mode": "Apply for Job Card at Gram Panchayat office. Work demand application submitted to Gram Panchayat"
+    },
+    {
+      "id": "pm_awas_gramin",
+      "name": "PM Awas Yojana Gramin",
+      "category": "social_welfare",
+      "last_verified": "2025-10-20",
+      "source_text": "Households listed in SECC 2011 data who are houseless or living in zero, one, or two room kutcha houses with kutcha wall and roof are eligible. Exclusion criteria apply for motorized vehicles, income tax payers, and higher landholdings. Source: pmayg.nic.in official guidelines.",
+      "description": "Financial assistance to BPL rural households for construction of pucca houses with basic amenities including toilet, LPG connection, electricity, and drinking water.",
+      "eligibility": {
+        "residence": ["rural"],
+        "income_category": ["BPL"],
+        "housing_condition": "Must not own a pucca house — houseless or kutcha house only",
+        "requires_secc_listing": true,
+        "requires_bank_account": true,
+        "excluded": [
+          "households owning motorized two/three/four wheelers",
+          "households owning refrigerator",
+          "income tax payers",
+          "households with any member earning above Rs 10000/month"
+        ]
+      },
+      "documents_required": [
+        "Aadhaar card",
+        "BPL ration card",
+        "SECC 2011 listing confirmation from Gram Panchayat",
+        "Bank account passbook",
+        "Land document for house construction site",
+        "Job card (MGNREGA) if available"
+      ],
+      "benefit": "Rs 1.20 lakh in plains, Rs 1.30 lakh in hilly and difficult areas. Additional Rs 12000 for toilet construction under Swachh Bharat Mission",
+      "portal": "https://pmayg.nic.in",
+      "helpline": "1800-11-6446",
+      "application_mode": "Applied through Gram Panchayat or Block Development Office. Beneficiary selected from SECC 2011 waitlist"
+    },
+    {
+      "id": "ayushman_bharat",
+      "name": "Ayushman Bharat PM-JAY",
+      "category": "social_welfare",
+      "last_verified": "2025-11-01",
+      "source_text": "Families listed in SECC 2011 database under deprivation and occupational criteria for rural and urban areas are eligible. No restriction on family size, age, or gender. Source: pmjay.gov.in and AB PM-JAY operational guidelines 2023.",
+      "description": "World's largest health insurance scheme providing cashless health cover of Rs 5 lakh per family per year for secondary and tertiary care hospitalization at empanelled hospitals.",
+      "eligibility": {
+        "income_category": ["BPL", "SECC listed"],
+        "requires_secc_listing": true,
+        "requires_aadhaar": true,
+        "note": "No restriction on family size, age, or pre-existing conditions. Check eligibility at mera.pmjay.gov.in using mobile number or ration card number"
+      },
+      "documents_required": [
+        "Aadhaar card or any government photo ID",
+        "Ration card",
+        "Mobile number to check eligibility at mera.pmjay.gov.in"
+      ],
+      "benefit": "Rs 5 lakh health insurance per family per year. Covers 1949 medical procedures at 28000+ empanelled hospitals. Fully cashless and paperless",
+      "portal": "https://mera.pmjay.gov.in",
+      "helpline": "14555",
+      "application_mode": "No application needed — check eligibility online. Visit any empanelled hospital with Aadhaar for cashless treatment"
+    },
+    {
+      "id": "nfsa_ration",
+      "name": "National Food Security Act — Ration Card",
+      "category": "social_welfare",
+      "last_verified": "2025-09-15",
+      "source_text": "Up to 75% of rural population and 50% of urban population are entitled to subsidized foodgrains under NFSA. Priority Households get 5 kg per person per month. Antyodaya Anna Yojana households get 35 kg per family per month. Source: NFSA 2013 and state FCI guidelines.",
+      "description": "Subsidized foodgrains — rice, wheat, and coarse grains — at Rs 1-3 per kg to BPL and priority households through the Public Distribution System.",
+      "eligibility": {
+        "income_category": ["BPL", "AAY", "priority household"],
+        "residence": ["rural", "urban"],
+        "requires_aadhaar": true,
+        "note": "State governments determine final eligibility lists. Up to 75% of rural and 50% of urban population covered"
+      },
+      "documents_required": [
+        "Aadhaar card",
+        "Existing ration card (for changes) or new application",
+        "Residence proof",
+        "Income certificate from Tehsildar",
+        "Family photograph"
+      ],
+      "benefit": "Priority Household: 5 kg grains per person per month at Rs 1-3/kg. Antyodaya: 35 kg per family at same rate",
+      "portal": "https://nfsa.gov.in",
+      "helpline": "1800-233-5956",
+      "application_mode": "Apply at Tehsil office or online through state food department portal"
+    },
+    {
+      "id": "pm_ujjwala",
+      "name": "PM Ujjwala Yojana",
+      "category": "social_welfare",
+      "last_verified": "2025-08-01",
+      "source_text": "Women from BPL households who do not have an existing LPG connection in their name or any family member's name are eligible. Age must be 18 or above. Source: pmuy.gov.in official scheme guidelines 2.0.",
+      "description": "Free LPG connection to BPL women to replace harmful cooking fuels like firewood and cow dung, improving health and reducing indoor air pollution.",
+      "eligibility": {
+        "gender": "female",
+        "age_min": 18,
+        "income_category": ["BPL", "SECC listed", "SC/ST household", "PMAY beneficiary", "AAY household"],
+        "housing_condition": "No existing LPG connection in household",
+        "requires_aadhaar": true,
+        "requires_bank_account": true
+      },
+      "documents_required": [
+        "Aadhaar card of woman applicant",
+        "BPL ration card or SECC listing",
+        "Bank account passbook",
+        "Passport size photograph",
+        "Self-declaration of no existing LPG connection"
+      ],
+      "benefit": "Free LPG connection with first refill and stove. Subsequent refills at subsidized rates with PAHAL direct benefit transfer",
+      "portal": "https://pmuy.gov.in",
+      "helpline": "1800-233-3555",
+      "application_mode": "Apply at nearest LPG distributor (HP Gas, Bharat Gas, Indane) with documents"
+    },
+    {
+      "id": "pm_mudra",
+      "name": "PM Mudra Yojana",
+      "category": "livelihood",
+      "last_verified": "2025-10-01",
+      "source_text": "Non-farm micro and small enterprises in manufacturing, trading, and service sectors are eligible for loans up to Rs 10 lakh without collateral. Three tiers: Shishu up to Rs 50000, Kishor Rs 50000 to Rs 5 lakh, Tarun Rs 5 lakh to Rs 10 lakh. Source: mudra.org.in official guidelines.",
+      "description": "Collateral-free loans to micro and small non-farm enterprises for income generation and employment creation.",
+      "eligibility": {
+        "occupation": [
+          "small business owner",
+          "self-employed",
+          "artisan",
+          "vendor",
+          "street vendor",
+          "shopkeeper",
+          "micro manufacturer"
+        ],
+        "business_type": "non-farm micro or small enterprise",
+        "max_loan_amount": 1000000,
+        "requires_bank_account": true,
+        "requires_aadhaar": true,
+        "note": "No collateral required for loans up to Rs 10 lakh. SC/ST and women entrepreneurs given priority"
+      },
+      "documents_required": [
+        "Aadhaar card",
+        "PAN card",
+        "Business proof or plan (even informal description accepted)",
+        "Bank account passbook",
+        "Passport size photograph",
+        "Caste certificate if SC/ST/OBC"
+      ],
+      "benefit": "Shishu: up to Rs 50000 | Kishor: Rs 50001 to Rs 5 lakh | Tarun: Rs 5 lakh to Rs 10 lakh. No collateral. Interest rates vary by bank",
+      "portal": "https://mudra.org.in",
+      "helpline": "1800-180-1111",
+      "application_mode": "Apply at any bank, microfinance institution, or NBFC. Also available on Udyami Mitra portal"
+    },
+    {
+      "id": "pmkvy",
+      "name": "PM Kaushal Vikas Yojana",
+      "category": "livelihood",
+      "last_verified": "2025-09-01",
+      "source_text": "Indian nationals between 15 and 45 years without formal skill certification are eligible for free skill training under PMKVY 4.0. Priority given to school and college dropouts, unemployed youth, and migrant workers. Source: skillindiadigital.gov.in and PMKVY 4.0 guidelines.",
+      "description": "Free short-term skill training with certification recognized by industry and government, improving employability and income generation.",
+      "eligibility": {
+        "age_min": 15,
+        "age_max": 45,
+        "requires_aadhaar": true,
+        "note": "School dropouts and college dropouts given priority. No minimum education required for most courses",
+        "excluded": ["already skill certified in same trade"]
+      },
+      "documents_required": [
+        "Aadhaar card",
+        "Bank account passbook",
+        "Educational certificates if available",
+        "Passport size photograph",
+        "Mobile number"
+      ],
+      "benefit": "Free skill training of 150-300 hours. Rs 500 per month stipend during training. Industry-recognized certification. Placement assistance",
+      "portal": "https://skillindiadigital.gov.in",
+      "helpline": "1800-123-9626",
+      "application_mode": "Register online at skillindiadigital.gov.in or visit nearest PMKVY training centre"
+    },
+    {
+      "id": "pm_matru_vandana",
+      "name": "PM Matru Vandana Yojana",
+      "category": "social_welfare",
+      "last_verified": "2025-08-15",
+      "source_text": "Pregnant and lactating women aged 19 years and above are eligible for cash incentive for first live birth. Second child incentive given only if second child is a girl. Source: wcd.nic.in and PMMVY 2.0 guidelines 2022.",
+      "description": "Maternity benefit program providing cash incentives to pregnant and lactating women to encourage institutional delivery, rest, and improved nutrition.",
+      "eligibility": {
+        "gender": "female",
+        "age_min": 19,
+        "condition": "pregnant or lactating woman",
+        "birth_order": "first live birth — second birth if girl child",
+        "requires_aadhaar": true,
+        "requires_bank_account": true,
+        "note": "Must register at Anganwadi centre or health facility"
+      },
+      "documents_required": [
+        "Aadhaar card of mother",
+        "Aadhaar card of husband",
+        "Bank account passbook in mother's name",
+        "MCP card (Mother and Child Protection card) from Anganwadi",
+        "Mobile number"
+      ],
+      "benefit": "Rs 5000 in two installments for first child. Rs 6000 for second child if girl. Paid directly to mother's bank account",
+      "portal": "https://pmmvy.wcd.gov.in",
+      "helpline": "7998799804",
+      "application_mode": "Register at nearest Anganwadi centre or health sub-centre within 150 days of last menstrual period"
+    },
+    {
+      "id": "pm_svanidhi",
+      "name": "PM SVANidhi — Street Vendor Loan",
+      "category": "livelihood",
+      "last_verified": "2025-10-01",
+      "source_text": "Street vendors vending in urban areas as of or before March 24 2020 are eligible. Must have Certificate of Vending from Urban Local Body or Letter of Recommendation from Town Vending Committee. Source: pmsvanidhi.mohua.gov.in official guidelines.",
+      "description": "Collateral-free working capital loans to street vendors to resume livelihoods affected by COVID-19, with incentive for digital transactions.",
+      "eligibility": {
+        "occupation": ["street vendor", "hawker", "rehri wala", "thela wala"],
+        "residence": ["urban"],
+        "requires_certificate_of_vending": true,
+        "requires_bank_account": true,
+        "requires_aadhaar": true,
+        "note": "Vendors without Certificate of Vending can apply with Letter of Recommendation from Urban Local Body"
+      },
+      "documents_required": [
+        "Aadhaar card",
+        "Certificate of Vending or Letter of Recommendation from ULB",
+        "Bank account passbook",
+        "Mobile number linked to Aadhaar",
+        "Passport size photograph"
+      ],
+      "benefit": "Initial loan of Rs 10000. On timely repayment: Rs 20000 in second cycle, Rs 50000 in third cycle. 7% interest subsidy. Rs 1200/year cashback on digital transactions",
+      "portal": "https://pmsvanidhi.mohua.gov.in",
+      "helpline": "1800-11-1979",
+      "application_mode": "Apply online at pmsvanidhi.mohua.gov.in or through bank branch or Common Service Centre"
+    }
+  ]
+}
