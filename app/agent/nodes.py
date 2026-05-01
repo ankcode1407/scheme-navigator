@@ -15,9 +15,9 @@ from app.agent.models import SchemeCandidate, SchemeMatch
 from app.knowledge_base.scheme_loader import load_schemes
 
 load_dotenv()
-<<<<<<< HEAD
 
-_groq_client = None
+_groq_client: Groq | None = None
+
 
 def get_groq_client():
     global _groq_client
@@ -27,18 +27,7 @@ def get_groq_client():
             raise ValueError("GROQ_API_KEY environment variable is not set")
         _groq_client = Groq(api_key=api_key)
     return _groq_client
-# Normalization maps — deterministic, no LLM needed
-OCCUPATION_MAP = {
-    "kisan": "farmer",
-    "farmer": "farmer",
-    "kisaan": "farmer",
-    "student": "student",
-    "vyapari": "small business owner",
-    "vendor": "vendor",
-    "mazdoor": "daily wage worker",
-    "worker": "daily wage worker",
-=======
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
 
 QUESTIONS_MAP = {
     "problem_statement": "What problem are you facing?",
@@ -50,7 +39,6 @@ QUESTIONS_MAP = {
     "application_status": "Has your application been submitted, rejected, or is it still pending?",
     "rejection_reason": "What reason was given for the rejection?",
     "missing_documents": "Which documents are missing?",
->>>>>>> 00e86c5 (Fix port binding, lazy client init, occupation loop fix, multilingual improvements)
 }
 
 STATE_PREFIXES_TO_STRIP = [
@@ -437,6 +425,7 @@ def detect_user_language(state: AgentState) -> AgentState:
 
     state["awaiting_language_selection"] = True
     state["language_selected"] = False
+    state["user_language"] = "en-IN"
     state["translate_response"] = False
     state["stop_after_language_gate"] = True
     state["response_to_user"] = "Hindi mein baat karein ya English mein? Please reply with Hindi or English."
@@ -564,16 +553,8 @@ Rules:
 - If the message is about a rejected/pending application, capture it in case_context.
 - If you are not sure, use null.
 """
-<<<<<<< HEAD
-    response = get_groq_client().chat.completions.create(
-        model="llama-3.1-8b-instant",
-        messages=[{"role": "user", "content": prompt}],
-        max_tokens=300,
-        temperature=0
-=======
-
     try:
-        response = client.chat.completions.create(
+        response = get_groq_client().chat.completions.create(
             model="llama-3.1-8b-instant",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=500,
@@ -603,7 +584,6 @@ Rules:
             str(user_existing.get(k, "") or "")
             for k in ["problem_statement", "specific_problem"]
         ),
->>>>>>> 00e86c5 (Fix port binding, lazy client init, occupation loop fix, multilingual improvements)
     )
 
     state["user_context"] = normalize_user_context(user_existing)
@@ -910,84 +890,7 @@ def match_schemes(state: AgentState) -> AgentState:
             )
         matches = fallback
 
-<<<<<<< HEAD
-        # Occupation filter — include if scheme lists no occupation OR matches
-        scheme_occupations = [o.lower() for o in (e.get("occupation") or [])]
-        if scheme_occupations and occupation:
-            occ_match = any(
-                occupation in o or o in occupation
-                for o in scheme_occupations
-            )
-            if not occ_match:
-                return False
-
-        # Residence filter
-        scheme_residence = (e.get("residence") or "").lower()
-        if scheme_residence and residence:
-            if scheme_residence not in ("both", "") and scheme_residence != residence:
-                return False
-
-        return True
-
-    filtered = [s for s in all_schemes if is_relevant(s)]
-
-    # Cap at 30 schemes — enough for good coverage, fits in context window
-   # Cap at 15 schemes
-    filtered = filtered[:15]
-
-    if not filtered:
-        filtered = [s for s in all_schemes
-                   if not s.get("eligibility", {}).get("state")][:10]
-
-    # Trim each scheme to only what the LLM needs for reasoning
-    # Removes verbose description fields that bloat the prompt
-    def trim_scheme(s: dict) -> dict:
-        return {
-            "id": s.get("id", ""),
-            "name": s.get("name", ""),
-            "category": s.get("category", ""),
-            "eligibility": s.get("eligibility", {}),
-            "benefit": (s.get("benefit") or "")[:120],
-            "documents_required": s.get("documents_required", [])[:6],
-            "portal": s.get("portal", ""),
-            "helpline": s.get("helpline", ""),
-        }
-
-    trimmed = [trim_scheme(s) for s in filtered]
-
-    prompt = f"""
-You are an expert on Indian government welfare schemes.
-
-User profile:
-{json.dumps(ctx, indent=2)}
-
-Schemes to evaluate:
-{json.dumps(trimmed, indent=2)}
-
-Return a JSON array of matches where this user is genuinely eligible.
-Each match must have: scheme_id, scheme_name, confidence (HIGH/LIKELY/NEEDS_VERIFICATION),
-reason (one sentence), documents_required (list), action_steps (2-3 steps), portal, helpline.
-Return ONLY valid JSON array.
-"""
-
-    response = get_groq_client().chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=[{"role": "user", "content": prompt}],
-        max_tokens=2000,
-        temperature=0,
-    )
-
-    raw = response.choices[0].message.content.strip()
-    if "```" in raw:
-        raw = raw.split("```")[1]
-        if raw.startswith("json"):
-            raw = raw[4:]
-
-    matched = json.loads(raw)
-    state["matched_schemes"] = matched
-=======
     state["matched_schemes"] = [_dump_model(m) for m in matches]
->>>>>>> 00e86c5 (Fix port binding, lazy client init, occupation loop fix, multilingual improvements)
     return state
 
 
