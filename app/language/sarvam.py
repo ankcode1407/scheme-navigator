@@ -5,7 +5,16 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client = SarvamAI(api_subscription_key=os.getenv("SARVAM_API_KEY"))
+_sarvam_client = None
+
+def get_sarvam_client():
+    global _sarvam_client
+    if _sarvam_client is None:
+        api_key = os.getenv("SARVAM_API_KEY")
+        if not api_key:
+            raise ValueError("SARVAM_API_KEY environment variable is not set")
+        _sarvam_client = SarvamAI(api_subscription_key=api_key)
+    return _sarvam_client
 
 # Language code map — detect from user input pattern
 LANGUAGE_CODES = {
@@ -29,7 +38,7 @@ def detect_language(text: str) -> str:
     Falls back to 'hi-IN' if detection fails.
     """
     try:
-        response = client.text.identify_language(input=text)
+        response = get_sarvam_client().text.identify_language(input=text)
         return response.language_code or "hi-IN"
     except Exception:
         # If detection fails, assume Hindi — most common use case
@@ -61,7 +70,7 @@ def translate_to_user_language(
 
         translated_chunks = []
         for chunk in chunks:
-            response = client.text.translate(
+            response = get_sarvam_client().text.translate(
                 input=chunk,
                 source_language_code="en-IN",
                 target_language_code=target_language_code,
