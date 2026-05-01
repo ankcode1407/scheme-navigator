@@ -18,7 +18,6 @@ load_dotenv()
 
 _groq_client: Groq | None = None
 
-
 def get_groq_client():
     global _groq_client
     if _groq_client is None:
@@ -27,8 +26,6 @@ def get_groq_client():
             raise ValueError("GROQ_API_KEY environment variable is not set")
         _groq_client = Groq(api_key=api_key)
     return _groq_client
-
-
 QUESTIONS_MAP = {
     "problem_statement": "What problem are you facing?",
     "occupation": "What is your occupation?",
