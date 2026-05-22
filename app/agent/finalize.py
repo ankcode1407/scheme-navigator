@@ -27,7 +27,7 @@ LOCALIZED_STRINGS = {
         "en-IN": "Please choose your language first.",
         "hi-IN": "कृपया पहले अपनी भाषा चुनें।",
         "bn-IN": "অনুগ্রহ করে আগে আপনার ভাষা নির্বাচন করুন।",
-        "ta-IN": "முதலில் உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்।",
+        "ta-IN": "முதலில் உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்.",
         "te-IN": "దయచేసి ముందుగా మీ భాషను ఎంచుకోండి.",
         "mr-IN": "कृपया आधी तुमची भाषा निवडा.",
         "gu-IN": "કૃપા કરીને પહેલા તમારી ભાષા પસંદ કરો.",
@@ -105,18 +105,6 @@ def get_localized_string(key: str, language_code: str = DEFAULT_LANGUAGE_CODE) -
     if language_code in localized:
         return localized[language_code]
     return localized.get(DEFAULT_LANGUAGE_CODE, "")
-
-
-def get_language_gate_prompt(language_code: str = DEFAULT_LANGUAGE_CODE) -> str:
-    return get_localized_string("language_gate_prompt", language_code)
-
-
-def get_language_acknowledgement(language_code: str = DEFAULT_LANGUAGE_CODE) -> str:
-    return get_localized_string("language_acknowledgement", language_code)
-
-
-def get_problem_first_question(language_code: str = DEFAULT_LANGUAGE_CODE) -> str:
-    return get_localized_string("problem_first_question", language_code)
 
 # ---------------------------------------------------------------------------
 # Language choices
