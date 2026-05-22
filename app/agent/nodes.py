@@ -67,6 +67,7 @@ def parse_language_choice(text: str) -> Optional[dict[str, str]]:
 
 def detect_user_language(state: AgentState) -> AgentState:
     preferred_language = state.get("preferred_language") or state.get("user_language")
+
     if preferred_language:
         state["preferred_language"] = preferred_language
         state["user_language"] = preferred_language
@@ -77,9 +78,31 @@ def detect_user_language(state: AgentState) -> AgentState:
         return state
 
     selected = parse_language_choice(state.get("user_input", ""))
+
     if selected:
         code = selected["code"]
-        opening = "Thanks. Tell me what problem you are facing."
+
+        OPENING_MESSAGES = {
+            "en": "Thanks. Tell me what problem you are facing.",
+            "hi": "धन्यवाद। कृपया बताइए कि आपको क्या समस्या हो रही है।",
+            "gu": "આભાર। કૃપા કરીને જણાવો કે તમને કઈ સમસ્યા આવી રહી છે.",
+            "bn": "ধন্যবাদ। অনুগ্রহ করে বলুন আপনি কী সমস্যার সম্মুখীন হচ্ছেন।",
+            "ta": "நன்றி। தயவுசெய்து நீங்கள் சந்திக்கும் பிரச்சினையை சொல்லுங்கள்.",
+            "te": "ధన్యవాదాలు. దయచేసి మీరు ఎదుర్కొంటున్న సమస్యను చెప్పండి.",
+            "mr": "धन्यवाद। कृपया तुम्हाला कोणती अडचण येत आहे ते सांगा.",
+            "kn": "ಧನ್ಯವಾದಗಳು. ದಯವಿಟ್ಟು ನೀವು ಎದುರಿಸುತ್ತಿರುವ ಸಮಸ್ಯೆಯನ್ನು ತಿಳಿಸಿ.",
+            "ml": "നന്ദി. ദയവായി നിങ്ങൾ നേരിടുന്ന പ്രശ്നം പറയൂ.",
+            "pa": "ਧੰਨਵਾਦ। ਕਿਰਪਾ ਕਰਕੇ ਦੱਸੋ ਤੁਹਾਨੂੰ ਕੀ ਸਮੱਸਿਆ ਆ ਰਹੀ ਹੈ।",
+            "od": "ଧନ୍ୟବାଦ। ଦୟାକରି ଆପଣ କେଉଁ ସମସ୍ୟାର ସମ୍ମୁଖୀନ ହେଉଛନ୍ତୁ କୁହନ୍ତୁ।",
+        }
+
+        language_prefix = code.split("-")[0]
+
+        opening = OPENING_MESSAGES.get(
+            language_prefix,
+            "Thanks. Tell me what problem you are facing."
+        )
+
         state["preferred_language"] = code
         state["user_language"] = code
         state["translate_response"] = code != "en"
@@ -89,12 +112,14 @@ def detect_user_language(state: AgentState) -> AgentState:
         state["response_to_user"] = opening
         state["response_tts_text"] = opening
         state["should_play_tts"] = True
+
         return state
 
     prompt = (
         "Please choose your language first. You can pick Hindi, English, Bengali, "
         "Tamil, Telugu, Marathi, Gujarati, Kannada, Malayalam, Punjabi, or Odia."
     )
+
     state["user_language"] = "en"
     state["translate_response"] = False
     state["language_selected"] = False
@@ -103,6 +128,7 @@ def detect_user_language(state: AgentState) -> AgentState:
     state["response_to_user"] = prompt
     state["response_tts_text"] = prompt
     state["should_play_tts"] = True
+
     return state
 
 
