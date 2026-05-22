@@ -143,8 +143,7 @@ def normalize_problem_category(value: str | None, blob: str = "") -> str | None:
         for key, mapped in canonical.items():
             if key in normalized:
                 return mapped
-
-  lowered = (blob or "").lower()
+                lowered = (blob or "").lower()
     for category, keywords in PROBLEM_CATEGORY_KEYWORDS.items():
         if any(keyword in lowered for keyword in keywords):
             return category
