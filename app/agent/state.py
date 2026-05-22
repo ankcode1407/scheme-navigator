@@ -65,8 +65,12 @@ class AgentState(TypedDict, total=False):
     last_question_field: Optional[str]
 
     matched_schemes: List[SchemeMatch]
+    
+    # --- Response Payload Variables ---
     response_to_user: Optional[str]
     response_tts_text: Optional[str]
+    response_language: str              # Added this line
+    response_source_language: str       # Added this line
     should_play_tts: bool
 
     stop_after_language_gate: bool

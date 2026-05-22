@@ -46,7 +46,7 @@ LOCALIZED_STRINGS = {
         "gu-IN": "આભાર। કૃપા કરીને જણાવો કે તમને કઈ સમસ્યા આવી રહી છે.",
         "kn-IN": "ಧನ್ಯವಾದಗಳು. ದಯವಿಟ್ಟು ನೀವು ಎದುರಿಸುತ್ತಿರುವ ಸಮಸ್ಯೆಯನ್ನು ತಿಳಿಸಿ.",
         "ml-IN": "നന്ദി. ദയവായി നിങ്ങൾ നേരിടുന്ന പ്രശ്നം പറയൂ.",
-        "pa-IN": "ਧੰਨਵਾਦ। ਕਿਰਪਾ ਕਰਕੇ ਦੱਸੋ ਤੁਹਾਨੂੰ ਕੀ ਸਮੱਸਿਆ ਆ ਰਹੀ ਹੈ।",
+        "pa-IN": "ਧੰਨਵਾਦ। ਕਿਰਪਾ ਕਰਕੇ ਦੱਸੋ ਤੁਹਾਨੂੰ ਕੀ ਸਮੱਸਿਆ ਆ ਰਹੀ है।",
         "od-IN": "ଧନ୍ୟବାଦ। ଦୟାକରି ଆପଣ କେଉଁ ସମସ୍ୟାର ସମ୍ମୁଖୀନ ହେଉଛନ୍ତି କୁହନ୍ତୁ।",
     },
     "problem_first_question": {
@@ -102,8 +102,21 @@ PROBLEM_FIRST_QUESTION = LOCALIZED_STRINGS["problem_first_question"][DEFAULT_LAN
 
 def get_localized_string(key: str, language_code: str = DEFAULT_LANGUAGE_CODE) -> str:
     localized = LOCALIZED_STRINGS.get(key, {})
+    
+    if not localized:
+        return ""
+
     if language_code in localized:
         return localized[language_code]
+
+    short_code = language_code.split("-")[0].lower()
+
+    for candidate in localized:
+        candidate_short = candidate.split("-")[0].lower()
+
+        if candidate_short == short_code:
+            return localized[candidate]
+
     return localized.get(DEFAULT_LANGUAGE_CODE, "")
 
 # ---------------------------------------------------------------------------
