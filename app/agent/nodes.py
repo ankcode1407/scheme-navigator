@@ -254,7 +254,7 @@ def check_completeness(state: AgentState) -> AgentState:
 
     problem = user_context.get("problem_statement")
     if not problem:
-        problem = infer_problem_statement_from_context(user_context, history)
+        problem = infer_problem_statement_from_context(user_context)
         if problem:
             user_context["problem_statement"] = problem
 
