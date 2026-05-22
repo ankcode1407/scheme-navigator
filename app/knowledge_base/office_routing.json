@@ -1,0 +1,102 @@
+{
+  "agriculture": {
+    "office": "Block Agriculture Office or Tehsil/Lekhpal office",
+    "ask": "crop loss verification, land-record correction, or farmer registration status",
+    "documents": [
+      "Aadhaar",
+      "bank passbook",
+      "land record/khasra-khatauni",
+      "application ID if available"
+    ]
+  },
+  "ration": {
+    "office": "Food and Civil Supplies Office, ration dealer, or CSC",
+    "ask": "ration card correction, member addition, e-KYC, or rejected ration application reason",
+    "documents": [
+      "Aadhaar for family members",
+      "ration card/application ID",
+      "residence proof"
+    ]
+  },
+  "education": {
+    "office": "District Education Office, school/college office, or CSC",
+    "ask": "scholarship application status, institute verification, or missing document reason",
+    "documents": [
+      "Aadhaar",
+      "bank passbook",
+      "marksheet",
+      "income/caste certificate",
+      "application ID"
+    ]
+  },
+  "pension": {
+    "office": "Social Welfare Office, Block Development Office, or CSC",
+    "ask": "pension application status, eligibility verification, or bank/Aadhaar seeding issue",
+    "documents": [
+      "Aadhaar",
+      "bank passbook",
+      "age/disability/widow certificate if relevant",
+      "application ID"
+    ]
+  },
+  "housing": {
+    "office": "Gram Panchayat, Block Development Office, or housing department desk",
+    "ask": "housing/toilet list status, survey correction, or beneficiary verification",
+    "documents": [
+      "Aadhaar",
+      "residence proof",
+      "income proof if available",
+      "application ID"
+    ]
+  },
+  "health": {
+    "office": "District hospital help desk, Ayushman Mitra, or CSC",
+    "ask": "health card eligibility, hospital claim status, or family ID correction",
+    "documents": [
+      "Aadhaar",
+      "ration card/family ID",
+      "hospital papers",
+      "application/card number"
+    ]
+  },
+  "documents": {
+    "office": "CSC, Tehsil office, or the department desk named on the application",
+    "ask": "document correction, certificate status, or exact missing document reason",
+    "documents": [
+      "Aadhaar",
+      "application receipt",
+      "old certificate/card if any",
+      "residence proof"
+    ]
+  },
+  "debt": {
+    "office": "Bank branch, District Industries Centre, or CSC",
+    "ask": "loan application status, subsidy status, or rejection reason in writing",
+    "documents": [
+      "Aadhaar",
+      "bank passbook",
+      "application ID",
+      "business/income papers if available"
+    ]
+  },
+  "employment": {
+    "office": "Block Development Office, job card desk, District Employment Office, or CSC",
+    "ask": "job card, work demand, payment delay, or skill-training registration status",
+    "documents": [
+      "Aadhaar",
+      "bank passbook",
+      "job card/application ID if available",
+      "residence proof"
+    ]
+  },
+  "default": {
+    "office": "CSC, Block Development Office, or the department office named on the scheme",
+    "ask": "application status, rejection reason, and the exact next document or correction required",
+    "documents": [
+      "Aadhaar",
+      "bank passbook",
+      "application ID/receipt",
+      "residence proof"
+    ]
+  }
+}

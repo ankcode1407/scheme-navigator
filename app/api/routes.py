@@ -49,6 +49,29 @@ class ChatResponse(BaseModel):
     problem_category: Optional[str] = None
 
 
+class TTSRequest(BaseModel):
+    text: str
+    language_code: str = "hi-IN"
+    speaker: str = "anushka"
+
+
+class TTSResponse(BaseModel):
+    audio_base64: str
+    audio_mime_type: str = "audio/mpeg"
+
+
+class STTRequest(BaseModel):
+    audio_base64: str
+    mime_type: str = "audio/webm"
+    language_code: str = "unknown"
+
+
+class STTResponse(BaseModel):
+    transcript: str
+    language_code: Optional[str] = None
+    language_probability: Optional[float] = None
+
+
 def _load_sessions() -> dict[str, Any]:
     if not SESSION_FILE.exists():
         return {}
@@ -150,3 +173,27 @@ def chat(request: ChatRequest):
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+@app.post("/tts", response_model=TTSResponse)
+def text_to_speech(request: TTSRequest):
+    from app.language.sarvam import synthesize_bulbul_tts
+
+    audio = synthesize_bulbul_tts(
+        request.text,
+        target_language_code=request.language_code,
+        speaker=request.speaker,
+    )
+    return TTSResponse(audio_base64=audio)
+
+
+@app.post("/stt", response_model=STTResponse)
+def speech_to_text(request: STTRequest):
+    from app.language.sarvam import transcribe_audio_base64
+
+    result = transcribe_audio_base64(
+        request.audio_base64,
+        mime_type=request.mime_type,
+        language_code=request.language_code,
+    )
+    return STTResponse(**result)
