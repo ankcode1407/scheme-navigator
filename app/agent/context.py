@@ -42,7 +42,9 @@ def normalize_number(value: Any) -> Optional[float]:
 def normalize_occupation(value: str | None) -> str | None:
     if not value:
         return None
+
     text = value.strip().lower()
+
     occupation_map = {
         "farmer": "farmer",
         "agriculture": "farmer",
@@ -83,41 +85,54 @@ def normalize_occupation(value: str | None) -> str | None:
         "engineer": "engineer",
         "driver": "driver",
     }
+
     if text in occupation_map:
         return occupation_map[text]
+
     for k, v in occupation_map.items():
         if k in text:
             return v
+
     return value.strip().lower()
 
 
 def normalize_state(value: str | None) -> str | None:
     if not value:
         return None
+
     state = value.strip().lower()
+
     for prefix in STATE_PREFIXES_TO_STRIP:
         if state.startswith(prefix):
             state = state[len(prefix):].strip()
+
     state = re.sub(r"^\b(in|at|of)\b\s+", "", state).strip()
+
     if not state:
         return None
+
     return state.title()
 
 
 def normalize_residence(value: str | None) -> str | None:
     if not value:
         return None
+
     residence = value.strip().lower()
+
     if any(word in residence for word in RURAL_WORDS):
         return "rural"
+
     if any(word in residence for word in URBAN_WORDS):
         return "urban"
+
     return residence
 
 
 def normalize_problem_category(value: str | None, blob: str = "") -> str | None:
     if value:
         normalized = value.strip().lower()
+
         canonical = {
             "agriculture": "agriculture",
             "agri": "agriculture",
@@ -138,15 +153,20 @@ def normalize_problem_category(value: str | None, blob: str = "") -> str | None:
             "debt": "debt",
             "loan": "debt",
         }
+
         if normalized in canonical:
             return canonical[normalized]
+
         for key, mapped in canonical.items():
             if key in normalized:
                 return mapped
-                lowered = (blob or "").lower()
+
+    lowered = (blob or "").lower()
+
     for category, keywords in PROBLEM_CATEGORY_KEYWORDS.items():
         if any(keyword in lowered for keyword in keywords):
             return category
+
     return None
 
 
@@ -156,32 +176,51 @@ def infer_problem_statement_from_context(ctx: dict) -> Optional[str]:
 
     if occupation == "unemployed" or problem_category == "employment":
         return "Looking for employment or livelihood support"
+
     if occupation == "student" or problem_category == "education":
         return "Need education or scholarship support"
+
     if occupation == "farmer" or problem_category == "agriculture":
         return "Need agriculture or farming support"
+
     if problem_category == "ration":
         return "Need ration or food support"
+
     if problem_category == "health":
         return "Need health support"
+
     if problem_category == "housing":
         return "Need housing or shelter support"
+
     if problem_category == "pension":
         return "Need pension support"
+
     if problem_category == "documents":
         return "Need help with documents or verification"
+
     if problem_category == "debt":
         return "Need help with loan or debt support"
+
     return None
 
 
 def infer_user_context_from_text(text: str) -> dict[str, Any]:
     lowered = (text or "").strip().lower()
+
     if not lowered:
         return {}
 
     inferred: dict[str, Any] = {}
-    bare_occupation_words = {"farmer", "kisan", "kisaan", "student", "unemployed", "jobless"}
+
+    bare_occupation_words = {
+        "farmer",
+        "kisan",
+        "kisaan",
+        "student",
+        "unemployed",
+        "jobless",
+    }
+
     occupation = normalize_occupation(lowered)
     category = normalize_problem_category(None, lowered)
 
@@ -204,15 +243,22 @@ def infer_user_context_from_text(text: str) -> dict[str, Any]:
         r"\b(?:from|in|main|mein|live in)\s+([a-z][a-z\s]+?)(?:\s+mein|\s+me|\s+i|\s+with|,|$)",
         lowered,
     )
+
     if state_match:
         maybe_state = normalize_state(state_match.group(1))
+
         if maybe_state and len(maybe_state) <= 40:
             inferred["state"] = maybe_state
 
     if any(word in lowered for word in RURAL_WORDS | URBAN_WORDS):
         inferred["residence"] = normalize_residence(lowered)
 
-    land = normalize_number(lowered) if any(word in lowered for word in ["hectare", "acre", "zameen", "land"]) else None
+    land = (
+        normalize_number(lowered)
+        if any(word in lowered for word in ["hectare", "acre", "zameen", "land"])
+        else None
+    )
+
     if land is not None:
         inferred["land_hectares"] = land
 
@@ -236,33 +282,46 @@ def normalize_user_context(context: dict) -> dict:
 
     if "occupation" in ctx:
         ctx["occupation"] = normalize_occupation(ctx.get("occupation"))
+
     if "state" in ctx:
         ctx["state"] = normalize_state(ctx.get("state"))
+
     if "district" in ctx and ctx.get("district"):
         ctx["district"] = str(ctx["district"]).strip().title()
+
     if "block" in ctx and ctx.get("block"):
         ctx["block"] = str(ctx["block"]).strip().title()
+
     if "residence" in ctx:
         ctx["residence"] = normalize_residence(ctx.get("residence"))
+
     if "land_hectares" in ctx:
         ctx["land_hectares"] = normalize_number(ctx.get("land_hectares"))
+
     if "family_size" in ctx:
         family_size = normalize_number(ctx.get("family_size"))
         ctx["family_size"] = int(family_size) if family_size is not None else None
+
     if "has_aadhaar" in ctx:
         ctx["has_aadhaar"] = normalize_boolish(ctx.get("has_aadhaar"))
+
     if "has_bank_account" in ctx:
         ctx["has_bank_account"] = normalize_boolish(ctx.get("has_bank_account"))
+
     if "has_ration_card" in ctx:
         ctx["has_ration_card"] = normalize_boolish(ctx.get("has_ration_card"))
 
     if not ctx.get("problem_statement"):
         inferred = infer_problem_statement_from_context(ctx)
+
         if inferred:
             ctx["problem_statement"] = inferred
 
     if not ctx.get("problem_category") and ctx.get("problem_statement"):
-        ctx["problem_category"] = normalize_problem_category(None, ctx.get("problem_statement") or "")
+        ctx["problem_category"] = normalize_problem_category(
+            None,
+            ctx.get("problem_statement") or "",
+        )
 
     return ctx
 
@@ -270,7 +329,14 @@ def normalize_user_context(context: dict) -> dict:
 def normalize_case_context(context: dict) -> dict:
     ctx = dict(context)
 
-    for key in ["case_id", "scheme_id", "scheme_name", "rejection_reason", "last_followup_date", "next_action"]:
+    for key in [
+        "case_id",
+        "scheme_id",
+        "scheme_name",
+        "rejection_reason",
+        "last_followup_date",
+        "next_action",
+    ]:
         if key in ctx and ctx.get(key):
             ctx[key] = str(ctx[key]).strip()
 
@@ -279,17 +345,26 @@ def normalize_case_context(context: dict) -> dict:
 
     if "missing_documents" in ctx:
         missing_documents = ctx.get("missing_documents")
+
         if missing_documents is None:
             ctx["missing_documents"] = []
+
         elif isinstance(missing_documents, list):
-            ctx["missing_documents"] = [str(x).strip() for x in missing_documents if str(x).strip()]
+            ctx["missing_documents"] = [
+                str(x).strip()
+                for x in missing_documents
+                if str(x).strip()
+            ]
+
         else:
             ctx["missing_documents"] = [str(missing_documents).strip()]
 
     if "district" in ctx and ctx.get("district"):
         ctx["district"] = str(ctx["district"]).strip().title()
+
     if "block" in ctx and ctx.get("block"):
         ctx["block"] = str(ctx["block"]).strip().title()
+
     if "office_type" in ctx and ctx.get("office_type"):
         ctx["office_type"] = str(ctx["office_type"]).strip().lower()
 
