@@ -38,14 +38,17 @@ def ask_followup(state: AgentState) -> AgentState:
 
     state["response_to_user"] = question
     state["response_tts_text"] = question
+
     state["response_language"] = (
         state.get("preferred_language")
         or "en-IN"
     )
+
     state["response_source_language"] = (
         state.get("preferred_language")
         or "en-IN"
     )
+
     state["should_play_tts"] = True
 
     return state
@@ -53,15 +56,44 @@ def ask_followup(state: AgentState) -> AgentState:
 
 workflow = StateGraph(AgentState)
 
-workflow.add_node("detect_user_language", detect_user_language)
-workflow.add_node("extract_context", extract_context)
-workflow.add_node("check_completeness", check_completeness)
-workflow.add_node("match_schemes", match_schemes)
-workflow.add_node("ask_followup", ask_followup)
-workflow.add_node("format_results", format_results)
-workflow.add_node("finalize_response", finalize_response)
+workflow.add_node(
+    "detect_user_language",
+    detect_user_language,
+)
 
-workflow.set_entry_point("detect_user_language")
+workflow.add_node(
+    "extract_context",
+    extract_context,
+)
+
+workflow.add_node(
+    "check_completeness",
+    check_completeness,
+)
+
+workflow.add_node(
+    "match_schemes",
+    match_schemes,
+)
+
+workflow.add_node(
+    "ask_followup",
+    ask_followup,
+)
+
+workflow.add_node(
+    "format_results",
+    format_results,
+)
+
+workflow.add_node(
+    "finalize_response",
+    finalize_response,
+)
+
+workflow.set_entry_point(
+    "detect_user_language"
+)
 
 workflow.add_conditional_edges(
     "detect_user_language",
@@ -106,4 +138,4 @@ workflow.add_edge(
     END,
 )
 
-graph = workflow.compile()
+agent = workflow.compile()
