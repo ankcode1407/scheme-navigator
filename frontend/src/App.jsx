@@ -404,7 +404,6 @@ function Composer({
   onVoiceToggle,
   onChangeLanguage,
 }) {
-  // FIX 1: Removed '!preferredLanguage' so the Send button works before a language is picked.
   const sendDisabled = loading || transcribing || !input.trim()
 
   return (
@@ -466,7 +465,6 @@ function Composer({
               ? "Yahan apni samasya likhein... (Enter to send)"
               : "Type your problem here... (Enter to send)"
           }
-          // FIX 2: Removed '!preferredLanguage' so the text box is clickable.
           disabled={loading || transcribing}
           rows={1}
           style={{
@@ -535,6 +533,26 @@ function Composer({
       </div>
     </footer>
   )
+}
+
+// ----------------------------------------------------------------------
+// THESE ARE THE FUNCTIONS THAT WERE MISSING CAUSING THE CRASH
+// ----------------------------------------------------------------------
+
+function chipStyle(active) {
+  return {
+    border: "1px solid #e7d5b0",
+    background: active ? "#fef3c7" : "white",
+    color: "#1c1917",
+    borderRadius: 999,
+    padding: "8px 12px",
+    cursor: "pointer",
+    fontSize: 12,
+    fontFamily: "'Libre Baskerville', Georgia, serif",
+    lineHeight: 1.35,
+    whiteSpace: "nowrap",
+    boxShadow: active ? "0 4px 12px rgba(180,120,0,0.08)" : "none",
+  }
 }
 
 function GlobalStyles() {
