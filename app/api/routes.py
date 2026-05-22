@@ -42,6 +42,7 @@ class ChatResponse(BaseModel):
     language_detected: str
     preferred_language: Optional[str] = None
     response_tts_text: Optional[str] = None
+    response_language: str = "en-IN"        # FIXED: Exposing the language to the frontend
     should_play_tts: bool = True
     awaiting_language_selection: bool = False
     user_context: Optional[dict[str, Any]] = None
@@ -162,6 +163,7 @@ def chat(request: ChatRequest):
         language_detected=result.get("user_language", preferred_language or "en-IN"),
         preferred_language=result.get("preferred_language") or preferred_language,
         response_tts_text=response_tts_text,
+        response_language=result.get("response_language", "en-IN"), # FIXED: Passing it to frontend
         should_play_tts=bool(result.get("should_play_tts", True)),
         awaiting_language_selection=bool(result.get("awaiting_language_selection", False)),
         user_context=result.get("user_context", {}),

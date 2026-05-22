@@ -88,7 +88,7 @@ export default function App() {
         text: agentText,
         ttsText: data.response_tts_text || agentText,
         shouldPlayTTS: data.should_play_tts !== false,
-        language: nextPreferred || preferredLanguage || data.language_detected || "en-IN",
+        language: data.response_language || nextPreferred || preferredLanguage || data.language_detected || "en-IN",
         contextComplete: Boolean(data.context_complete),
         schemesFound: Number(data.schemes_found || 0),
       })

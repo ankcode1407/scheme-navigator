@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { makeId, normalizeLanguageCode, safeJsonParse } from "../api"
 
-const STORAGE_KEY = "schemeNavigator.appState.v3"
+const STORAGE_KEY = "schemeNavigator.appState.v4"
 
 function loadPersistedState() {
   if (typeof window === "undefined") {
