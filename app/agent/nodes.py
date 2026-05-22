@@ -99,14 +99,9 @@ def _set_direct_response(state: AgentState, text: str, language_code: str) -> No
 
 
 def detect_user_language(state: AgentState) -> AgentState:
-    preferred_language = state.get("preferred_language") or state.get("user_language")
-    if preferred_language:
-        state["preferred_language"] = preferred_language
-        state["user_language"] = preferred_language
-        state["translate_response"] = preferred_language != "en-IN"
-        state["language_selected"] = True
-        state["awaiting_language_selection"] = False
-        state["stop_after_language_gate"] = False
+    # SENIOR SWE FIX: Do not rely on 'user_language' string presence. 
+    # Rely on the explicit 'language_selected' boolean to know if the user bypassed the gate.
+    if state.get("language_selected") and state.get("preferred_language"):
         return state
 
     selected = parse_language_choice(state.get("user_input", ""))

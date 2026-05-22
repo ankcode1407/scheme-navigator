@@ -42,7 +42,7 @@ class ChatResponse(BaseModel):
     language_detected: str
     preferred_language: Optional[str] = None
     response_tts_text: Optional[str] = None
-    response_language: str = "en-IN"        # FIXED: Exposing the language to the frontend
+    response_language: str = "en-IN"
     should_play_tts: bool = True
     awaiting_language_selection: bool = False
     user_context: Optional[dict[str, Any]] = None
@@ -127,7 +127,9 @@ def chat(request: ChatRequest):
         "response_to_user": None,
         "response_tts_text": None,
         "should_play_tts": True,
-        "user_language": preferred_language or "en-IN",
+        # SENIOR SWE FIX: Do not poison the language detector with an English default. 
+        # Leave it blank so LangGraph processes the user's intent purely.
+        "user_language": preferred_language or "", 
         "preferred_language": preferred_language,
         "translate_response": bool(preferred_language and preferred_language != "en-IN"),
         "awaiting_language_selection": not bool(preferred_language),
@@ -160,10 +162,10 @@ def chat(request: ChatRequest):
         response=response_text,
         context_complete=bool(result.get("context_complete", False)),
         schemes_found=len(result.get("matched_schemes", [])),
-        language_detected=result.get("user_language", preferred_language or "en-IN"),
+        language_detected=result.get("user_language") or preferred_language or "en-IN",
         preferred_language=result.get("preferred_language") or preferred_language,
         response_tts_text=response_tts_text,
-        response_language=result.get("response_language", "en-IN"), # FIXED: Passing it to frontend
+        response_language=result.get("response_language", "en-IN"),
         should_play_tts=bool(result.get("should_play_tts", True)),
         awaiting_language_selection=bool(result.get("awaiting_language_selection", False)),
         user_context=result.get("user_context", {}),

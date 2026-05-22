@@ -404,7 +404,8 @@ function Composer({
   onVoiceToggle,
   onChangeLanguage,
 }) {
-  const sendDisabled = loading || transcribing || !input.trim() || !preferredLanguage
+  // FIX 1: Removed '!preferredLanguage' so the Send button works before a language is picked.
+  const sendDisabled = loading || transcribing || !input.trim()
 
   return (
     <footer
@@ -460,12 +461,13 @@ function Composer({
           }}
           placeholder={
             !preferredLanguage
-              ? "Choose a language first..."
+              ? "Type your language (e.g., 'hindi') or choose above..."
               : preferredLanguage === "hi-IN"
               ? "Yahan apni samasya likhein... (Enter to send)"
               : "Type your problem here... (Enter to send)"
           }
-          disabled={loading || transcribing || !preferredLanguage}
+          // FIX 2: Removed '!preferredLanguage' so the text box is clickable.
+          disabled={loading || transcribing}
           rows={1}
           style={{
             flex: 1,
@@ -533,22 +535,6 @@ function Composer({
       </div>
     </footer>
   )
-}
-
-function chipStyle(active) {
-  return {
-    border: "1px solid #e7d5b0",
-    background: active ? "#fef3c7" : "white",
-    color: "#1c1917",
-    borderRadius: 999,
-    padding: "8px 12px",
-    cursor: "pointer",
-    fontSize: 12,
-    fontFamily: "'Libre Baskerville', Georgia, serif",
-    lineHeight: 1.35,
-    whiteSpace: "nowrap",
-    boxShadow: active ? "0 4px 12px rgba(180,120,0,0.08)" : "none",
-  }
 }
 
 function GlobalStyles() {
