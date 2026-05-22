@@ -23,8 +23,6 @@ from app.agent.context import (
     normalize_problem_category,
     normalize_user_context,
 )
-from app.agent.response_formatting import format_results
-from app.agent.scheme_matching import match_schemes
 from app.agent.state import AgentState
 
 load_dotenv()
@@ -61,13 +59,43 @@ def parse_language_choice(text: str) -> Optional[dict[str, str]]:
     if not normalized:
         return None
 
-    for choice in LANGUAGE_CHOICES:
-        tokens = [choice["code"], choice["name"], choice["english_name"], *choice["tokens"]]
-        if any(normalized == token.lower() for token in tokens):
-            return choice
-        if any(token.lower() in normalized for token in tokens if len(token) >= 3):
-            return choice
+    for alias, code in LANGUAGE_CHOICES.items():
+        alias_normalized = str(alias).lower()
+        code_normalized = str(code).lower()
+
+        if normalized == alias_normalized or normalized == code_normalized:
+            return {
+                "code": code,
+                "name": str(alias),
+                "english_name": str(alias),
+                "tokens": [str(alias)],
+            }
+
+        if len(alias_normalized) >= 3 and alias_normalized in normalized:
+            return {
+                "code": code,
+                "name": str(alias),
+                "english_name": str(alias),
+                "tokens": [str(alias)],
+            }
+
+        if len(normalized) >= 3 and normalized in alias_normalized:
+            return {
+                "code": code,
+                "name": str(alias),
+                "english_name": str(alias),
+                "tokens": [str(alias)],
+            }
+
     return None
+
+
+def _set_direct_response(state: AgentState, text: str, language_code: str) -> None:
+    state["response_to_user"] = text
+    state["response_tts_text"] = text
+    state["response_language"] = language_code
+    state["response_source_language"] = language_code
+    state["should_play_tts"] = True
 
 
 def detect_user_language(state: AgentState) -> AgentState:
@@ -75,7 +103,7 @@ def detect_user_language(state: AgentState) -> AgentState:
     if preferred_language:
         state["preferred_language"] = preferred_language
         state["user_language"] = preferred_language
-        state["translate_response"] = preferred_language != "en"
+        state["translate_response"] = preferred_language != "en-IN"
         state["language_selected"] = True
         state["awaiting_language_selection"] = False
         state["stop_after_language_gate"] = False
@@ -88,13 +116,11 @@ def detect_user_language(state: AgentState) -> AgentState:
 
         state["preferred_language"] = code
         state["user_language"] = code
-        state["translate_response"] = code != "en"
+        state["translate_response"] = code != "en-IN"
         state["language_selected"] = True
         state["awaiting_language_selection"] = False
         state["stop_after_language_gate"] = True
-        state["response_to_user"] = opening
-        state["response_tts_text"] = opening
-        state["should_play_tts"] = True
+        _set_direct_response(state, opening, code)
         return state
 
     prompt = (
@@ -102,14 +128,12 @@ def detect_user_language(state: AgentState) -> AgentState:
         "You can pick Hindi, English, Bengali, Tamil, Telugu, Marathi, Gujarati, "
         "Kannada, Malayalam, Punjabi, or Odia."
     )
-    state["user_language"] = "en"
+    state["user_language"] = "en-IN"
     state["translate_response"] = False
     state["language_selected"] = False
     state["awaiting_language_selection"] = True
     state["stop_after_language_gate"] = True
-    state["response_to_user"] = prompt
-    state["response_tts_text"] = prompt
-    state["should_play_tts"] = True
+    _set_direct_response(state, prompt, "en-IN")
     return state
 
 
@@ -286,28 +310,43 @@ def check_completeness(state: AgentState) -> AgentState:
     return state
 
 
-def ask_followup(state: AgentState) -> AgentState:
-    question = state.get("followup_question") or get_problem_first_question(
-        state.get("preferred_language", "en-IN")
+def finalize_response(state: AgentState) -> AgentState:
+    response = (state.get("response_to_user") or "").strip()
+    if not response:
+        return state
+
+    response_language = (
+        state.get("preferred_language")
+        or state.get("user_language")
+        or "en-IN"
     )
-    state["response_to_user"] = question
-    state["response_tts_text"] = question
-    state["should_play_tts"] = True
-    return state
+    response_source_language = state.get("response_source_language") or "en-IN"
 
+    state["response_language"] = response_language
+    state["response_source_language"] = response_source_language
 
-def translate_response(state: AgentState) -> AgentState:
-    response = state.get("response_to_user")
-    user_language = state.get("user_language") or state.get("preferred_language") or "en"
-    if not response or user_language == "en":
+    spoken_text = (state.get("response_tts_text") or response).strip()
+
+    if response_language == response_source_language:
+        state["response_to_user"] = response
+        state["response_tts_text"] = spoken_text
+        state["should_play_tts"] = True
         return state
 
     try:
         from app.language.translation import translate_to_user_language
 
-        translated = translate_to_user_language(response, user_language)
-        if translated:
-            state["response_to_user"] = translated
+        translated_response = translate_to_user_language(response, response_language)
+        translated_tts = translate_to_user_language(spoken_text, response_language)
+
+        if translated_response:
+            state["response_to_user"] = translated_response
+        if translated_tts:
+            state["response_tts_text"] = translated_tts
+        else:
+            state["response_tts_text"] = state["response_to_user"]
     except Exception:
-        pass
+        state["response_tts_text"] = spoken_text
+
+    state["should_play_tts"] = True
     return state

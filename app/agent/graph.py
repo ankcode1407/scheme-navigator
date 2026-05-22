@@ -10,13 +10,13 @@ from app.agent.nodes import (
     match_schemes,
     ask_followup,
     format_results,
-    translate_response,
+    finalize_response,
 )
 
 
 def route_after_language_gate(state: AgentState) -> str:
     if state.get("stop_after_language_gate"):
-        return "translate_response"
+        return "finalize_response"
     return "extract_context"
 
 
@@ -35,7 +35,7 @@ def build_graph():
     graph.add_node("match_schemes", match_schemes)
     graph.add_node("ask_followup", ask_followup)
     graph.add_node("format_results", format_results)
-    graph.add_node("translate_response", translate_response)
+    graph.add_node("finalize_response", finalize_response)
 
     graph.set_entry_point("detect_user_language")
 
@@ -44,7 +44,7 @@ def build_graph():
         route_after_language_gate,
         {
             "extract_context": "extract_context",
-            "translate_response": "translate_response",
+            "finalize_response": "finalize_response",
         },
     )
 
@@ -60,9 +60,9 @@ def build_graph():
     )
 
     graph.add_edge("match_schemes", "format_results")
-    graph.add_edge("format_results", "translate_response")
-    graph.add_edge("ask_followup", "translate_response")
-    graph.add_edge("translate_response", END)
+    graph.add_edge("format_results", "finalize_response")
+    graph.add_edge("ask_followup", "finalize_response")
+    graph.add_edge("finalize_response", END)
 
     return graph.compile()
 

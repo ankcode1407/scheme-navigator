@@ -23,6 +23,16 @@ def build_verification_notes(scheme: dict, ctx: dict) -> list[str]:
     return notes[:3]
 
 
+def _mark_dynamic_response(state: AgentState) -> None:
+    state["response_language"] = (
+        state.get("preferred_language")
+        or state.get("user_language")
+        or "en-IN"
+    )
+    state["response_source_language"] = "en-IN"
+    state["should_play_tts"] = True
+
+
 def format_results(state: AgentState) -> AgentState:
     ctx = state.get("user_context", {})
     case_ctx = state.get("case_context", {})
@@ -61,7 +71,7 @@ def format_results(state: AgentState) -> AgentState:
             case_followup,
             state["response_to_user"],
         )
-        state["should_play_tts"] = True
+        _mark_dynamic_response(state)
         return state
 
     if case_followup:
@@ -134,5 +144,5 @@ def format_results(state: AgentState) -> AgentState:
         case_followup,
         state["response_to_user"],
     )
-    state["should_play_tts"] = True
+    _mark_dynamic_response(state)
     return state
