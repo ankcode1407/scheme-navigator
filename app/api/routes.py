@@ -168,6 +168,11 @@ def chat(request: ChatRequest, background_tasks: BackgroundTasks):
                      not session_data.get("onboarding_shown")
 
     if is_new_session:
+        from app.agent.nodes import parse_language_choice
+        selected_lang = parse_language_choice(request.message)
+        if selected_lang:
+            preferred_language = selected_lang["code"]
+
         onboarding_data = {
             "type": "onboarding",
             "message": "Hi! I can help you find government schemes you may be eligible for. What do you need help with?",
