@@ -191,7 +191,22 @@ export default function App() {
                 sessionId={sessionId} 
                 onSelectChip={(chipText) => {
                   const lastUserMsg = [...messages].reverse().find((m) => m.role === "user");
-                  const originalQuery = lastUserMsg ? lastUserMsg.text : "";
+                  let originalQuery = lastUserMsg ? lastUserMsg.text : "";
+                  
+                  const isLangSelect = (text) => {
+                    const normalized = String(text || "").trim().toLowerCase();
+                    return LANGUAGE_OPTIONS.some(
+                      (opt) =>
+                        opt.label.toLowerCase() === normalized ||
+                        opt.code.toLowerCase() === normalized ||
+                        opt.hint.toLowerCase() === normalized
+                    );
+                  };
+                  
+                  if (isLangSelect(originalQuery)) {
+                    originalQuery = "";
+                  }
+                  
                   const combinedText = originalQuery ? `${originalQuery}, ${chipText}` : chipText;
                   sendMessage(combinedText);
                 }}
