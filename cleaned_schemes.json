@@ -1,0 +1,322 @@
+[
+  {
+    "id": "naGzF5gBXu-iUKXqInRl",
+    "name": "Post Matric Scholarship Students With Disabilities",
+    "category": "Education & Learning",
+    "last_verified": "2026-05-22",
+    "source_url": "https://www.myscheme.gov.in/schemes/post-dis",
+    "description": "A scholarship scheme by DoEPwD for students with disabilities pursuing a post-matric qualification from UGC/AICTE recognized universities, i.e. students of Class 11th, Class 12th, including Polytechnics, Post-Matriculation Diploma/Certificates and Bachelor’s/Master’s Degree/Diploma in India.",
+    "eligibility": {
+      "occupation": [
+        "student"
+      ],
+      "state": [
+        "All"
+      ],
+      "residence": [
+        "Urban",
+        "Rural",
+        "Both"
+      ],
+      "age_min": 22,
+      "age_max": 22,
+      "gender": [
+        "Male",
+        "All"
+      ],
+      "income_category": null,
+      "requires_aadhaar": true,
+      "requires_bank_account": true
+    },
+    "benefit": "A scholarship scheme by DoEPwD for students with disabilities pursuing a post-matric qualification from UGC/AICTE recognized universities, i.e. students of Class 11th, Class 12th, including Polytechnics, Post-Matriculation Diploma/Certificates and Bachelor’s/Master’s Degree/Diploma in India.",
+    "portal": "https://www.myscheme.gov.in/schemes/post-dis"
+  },
+  {
+    "id": "msazF5gB0AGc0F0iHTN4",
+    "name": "Skill Loan Scheme",
+    "category": "Skills & Employment",
+    "last_verified": "2026-05-22",
+    "source_url": "https://www.myscheme.gov.in/schemes/sl",
+    "description": "A Skill loan scheme by Ministry of Skill Development and Entrepreneurship to provide loan upto Rs. 1,50,000 to student who has secured admission in a course run by Industrial Training Institutes (ITIs), Polytechnics or in a school recognized by Central or State education Boards or in a college affil",
+    "eligibility": {
+      "occupation": [
+        "student"
+      ],
+      "state": [
+        "All"
+      ],
+      "residence": [
+        "Urban",
+        "Rural",
+        "Both"
+      ],
+      "age_min": 22,
+      "age_max": 22,
+      "gender": [
+        "Male",
+        "All"
+      ],
+      "income_category": null,
+      "requires_aadhaar": true,
+      "requires_bank_account": true
+    },
+    "benefit": "A Skill loan scheme by Ministry of Skill Development and Entrepreneurship to provide loan upto Rs. 1,50,000 to student who has secured admission in a course run by Industrial Training Institutes (ITIs), Polytechnics or in a school recognized by Central or State education Boards or in a college affil",
+    "portal": "https://www.myscheme.gov.in/schemes/sl"
+  },
+  {
+    "id": "haGzF5gBXu-iUKXqH3SS",
+    "name": "National Overseas Scholarship For Students With Disabilities",
+    "category": "Education & Learning",
+    "last_verified": "2026-05-22",
+    "source_url": "https://www.myscheme.gov.in/schemes/nos-swd",
+    "description": "A scholarship scheme by the Ministry of Social Justice & Empowerment for regular, full-time students with disabilities to obtain higher education viz., Master's degree, or Ph.D. courses from foreign universities, in one of the specified fields of study.",
+    "eligibility": {
+      "occupation": [
+        "student"
+      ],
+      "state": [
+        "All"
+      ],
+      "residence": [
+        "Urban",
+        "Rural",
+        "Both"
+      ],
+      "age_min": 22,
+      "age_max": 22,
+      "gender": [
+        "Male",
+        "All"
+      ],
+      "income_category": null,
+      "requires_aadhaar": true,
+      "requires_bank_account": true
+    },
+    "benefit": "A scholarship scheme by the Ministry of Social Justice & Empowerment for regular, full-time students with disabilities to obtain higher education viz., Master's degree, or Ph.D. courses from foreign universities, in one of the specified fields of study.",
+    "portal": "https://www.myscheme.gov.in/schemes/nos-swd"
+  },
+  {
+    "id": "VxezF5gB5uF80_MGIY8p",
+    "name": "RMEWF-Financial Assistance For Medical Treatment Of Ex-Servicemen",
+    "category": "Health & Wellness",
+    "last_verified": "2026-05-22",
+    "source_url": "https://www.myscheme.gov.in/schemes/rmewf",
+    "description": "A scheme to provide financial assistance to a non-pensioner Ex-Servicemen/widows of ranks up to Havildar/equivalent to meet routine medical expenses.\n",
+    "eligibility": {
+      "occupation": [
+        "student"
+      ],
+      "state": [
+        "All"
+      ],
+      "residence": [
+        "Urban",
+        "Rural",
+        "Both"
+      ],
+      "age_min": 22,
+      "age_max": 22,
+      "gender": [
+        "Male",
+        "All"
+      ],
+      "income_category": null,
+      "requires_aadhaar": true,
+      "requires_bank_account": true
+    },
+    "benefit": "A scheme to provide financial assistance to a non-pensioner Ex-Servicemen/widows of ranks up to Havildar/equivalent to meet routine medical expenses.\n",
+    "portal": "https://www.myscheme.gov.in/schemes/rmewf"
+  },
+  {
+    "id": "LBezF5gB5uF80_MGGY81",
+    "name": "Stand-Up India",
+    "category": "Business & Entrepreneurship",
+    "last_verified": "2026-05-22",
+    "source_url": "https://www.myscheme.gov.in/schemes/sui",
+    "description": "A scheme by Ministry of Finance for financing SC/ST and  Women Entrepreneurs by facilitating bank loans for setting up a greenfield project  Enterprise in manufacturing, services, trading sector and activities allied to agriculture.",
+    "eligibility": {
+      "occupation": [
+        "student"
+      ],
+      "state": [
+        "All"
+      ],
+      "residence": [
+        "Urban",
+        "Rural",
+        "Both"
+      ],
+      "age_min": 22,
+      "age_max": 22,
+      "gender": [
+        "Male",
+        "All"
+      ],
+      "income_category": null,
+      "requires_aadhaar": true,
+      "requires_bank_account": true
+    },
+    "benefit": "A scheme by Ministry of Finance for financing SC/ST and  Women Entrepreneurs by facilitating bank loans for setting up a greenfield project  Enterprise in manufacturing, services, trading sector and activities allied to agriculture.",
+    "portal": "https://www.myscheme.gov.in/schemes/sui"
+  },
+  {
+    "id": "TRezF5gB5uF80_MGII9K",
+    "name": "Pradhan Mantri Suraksha Bima Yojana",
+    "category": "Banking,Financial Services and Insurance",
+    "last_verified": "2026-05-22",
+    "source_url": "https://www.myscheme.gov.in/schemes/pmsby",
+    "description": "An Accident Insurance Scheme offering accidental death and disability cover for death or disability on account of an accident.",
+    "eligibility": {
+      "occupation": [
+        "student"
+      ],
+      "state": [
+        "All"
+      ],
+      "residence": [
+        "Urban",
+        "Rural",
+        "Both"
+      ],
+      "age_min": 22,
+      "age_max": 22,
+      "gender": [
+        "Male",
+        "All"
+      ],
+      "income_category": null,
+      "requires_aadhaar": true,
+      "requires_bank_account": true
+    },
+    "benefit": "An Accident Insurance Scheme offering accidental death and disability cover for death or disability on account of an accident.",
+    "portal": "https://www.myscheme.gov.in/schemes/pmsby"
+  },
+  {
+    "id": "o6GzF5gBXu-iUKXqLXTE",
+    "name": "Pradhan Mantri Kaushal Vikas Yojana - Short Term Training",
+    "category": "Business & Entrepreneurship",
+    "last_verified": "2026-05-22",
+    "source_url": "https://www.myscheme.gov.in/schemes/pmkvy-stt",
+    "description": "A skill development scheme by Ministry of Skill Development and Entrepreneurship for school/college dropouts/unemployed aged 15-45 at PMKVY Training Centres (TCs). ",
+    "eligibility": {
+      "occupation": [
+        "student"
+      ],
+      "state": [
+        "All"
+      ],
+      "residence": [
+        "Urban",
+        "Rural",
+        "Both"
+      ],
+      "age_min": 22,
+      "age_max": 22,
+      "gender": [
+        "Male",
+        "All"
+      ],
+      "income_category": null,
+      "requires_aadhaar": true,
+      "requires_bank_account": true
+    },
+    "benefit": "A skill development scheme by Ministry of Skill Development and Entrepreneurship for school/college dropouts/unemployed aged 15-45 at PMKVY Training Centres (TCs). ",
+    "portal": "https://www.myscheme.gov.in/schemes/pmkvy-stt"
+  },
+  {
+    "id": "9ca0F5gB0AGc0F0iFTMU",
+    "name": "Research Grant For In-Service Faculty Members",
+    "category": "Education & Learning",
+    "last_verified": "2026-05-22",
+    "source_url": "https://www.myscheme.gov.in/schemes/rgisfm",
+    "description": "The scheme \"Research Grant for In-Service Faculty Members\" was introduced by the University Grants Commission (UGC), Department of Higher Education (DoHE). The objective of this research grant is to provide opportunities to regularly appointed faculty members of Universities/ Institutes/ Colleges.",
+    "eligibility": {
+      "occupation": [
+        "student"
+      ],
+      "state": [
+        "All"
+      ],
+      "residence": [
+        "Urban",
+        "Rural",
+        "Both"
+      ],
+      "age_min": 22,
+      "age_max": 22,
+      "gender": [
+        "Male",
+        "All"
+      ],
+      "income_category": null,
+      "requires_aadhaar": true,
+      "requires_bank_account": true
+    },
+    "benefit": "The scheme \"Research Grant for In-Service Faculty Members\" was introduced by the University Grants Commission (UGC), Department of Higher Education (DoHE). The objective of this research grant is to provide opportunities to regularly appointed faculty members of Universities/ Institutes/ Colleges.",
+    "portal": "https://www.myscheme.gov.in/schemes/rgisfm"
+  },
+  {
+    "id": "2KG0F5gBXu-iUKXqGXTu",
+    "name": "Internship Programme By The Ministry Of External Affairs",
+    "category": "Education & Learning",
+    "last_verified": "2026-05-22",
+    "source_url": "https://www.myscheme.gov.in/schemes/ip-mea",
+    "description": "The Ministry of External Affairs launched the first edition of the Internship Programme in 2022. The internship policy aims to take foreign policy closer to the people. A total of 75 internships will be offered in the year 2022 in a single term of three months during April to June 2022.",
+    "eligibility": {
+      "occupation": [
+        "student"
+      ],
+      "state": [
+        "All"
+      ],
+      "residence": [
+        "Urban",
+        "Rural",
+        "Both"
+      ],
+      "age_min": 22,
+      "age_max": 22,
+      "gender": [
+        "Male",
+        "All"
+      ],
+      "income_category": null,
+      "requires_aadhaar": true,
+      "requires_bank_account": true
+    },
+    "benefit": "The Ministry of External Affairs launched the first edition of the Internship Programme in 2022. The internship policy aims to take foreign policy closer to the people. A total of 75 internships will be offered in the year 2022 in a single term of three months during April to June 2022.",
+    "portal": "https://www.myscheme.gov.in/schemes/ip-mea"
+  },
+  {
+    "id": "xsb9F5gB0AGc0F0iYzcl",
+    "name": "Scholarship For Cadets Of Sainik School Imphal",
+    "category": "Education & Learning",
+    "last_verified": "2026-05-22",
+    "source_url": "https://www.myscheme.gov.in/schemes/scossi",
+    "description": "The objective of the Scheme is to provide financial assistance to Mizo students permanently\nresiding in the States of studying at Sainik School Imphal, to enable them to qualify and joint National Defence Academy and further to the Armed Forces.",
+    "eligibility": {
+      "occupation": [
+        "student"
+      ],
+      "state": [
+        "Mizoram"
+      ],
+      "residence": [
+        "Urban",
+        "Rural",
+        "Both"
+      ],
+      "age_min": 22,
+      "age_max": 22,
+      "gender": [
+        "Male",
+        "All"
+      ],
+      "income_category": null,
+      "requires_aadhaar": true,
+      "requires_bank_account": true
+    },
+    "benefit": "The objective of the Scheme is to provide financial assistance to Mizo students permanently\nresiding in the States of studying at Sainik School Imphal, to enable them to qualify and joint National Defence Academy and further to the Armed Forces.",
+    "portal": "https://www.myscheme.gov.in/schemes/scossi"
+  }
+]

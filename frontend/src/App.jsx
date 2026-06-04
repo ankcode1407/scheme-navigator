@@ -32,6 +32,7 @@ export default function App() {
   const [awaitingLanguageSelection, setAwaitingLanguageSelection] = useState(!preferredLanguage)
   const [latestUserContext, setLatestUserContext] = useState(null)
   const [latestCaseContext, setLatestCaseContext] = useState(null)
+  const [pendingStateVerification, setPendingStateVerification] = useState(null)
 
   const bottomRef = useRef(null)
   const inputRef = useRef(null)
@@ -82,6 +83,11 @@ export default function App() {
       setLatestUserContext(data.user_context || null)
       setLatestCaseContext(data.case_context || null)
 
+      if (data.needs_state_verification && !pendingStateVerification) {
+        setPendingStateVerification(data)
+        return
+      }
+
       const agentText = String(data.response || "")
       const agentMessage = appendMessage({
         role: "agent",
@@ -126,6 +132,7 @@ export default function App() {
     setShowSuggestions(true)
     setLatestUserContext(null)
     setLatestCaseContext(null)
+    setPendingStateVerification(null)
     inputRef.current?.focus()
   }
 
@@ -179,9 +186,46 @@ export default function App() {
 
           {messages.map((message) => (
             <div key={message.id} className="msg-animate">
-              <MessageBubble msg={message} />
+              <MessageBubble 
+                msg={message} 
+                sessionId={sessionId} 
+                onSelectChip={(chipText) => {
+                  const lastUserMsg = [...messages].reverse().find((m) => m.role === "user");
+                  const originalQuery = lastUserMsg ? lastUserMsg.text : "";
+                  const combinedText = originalQuery ? `${originalQuery}, ${chipText}` : chipText;
+                  sendMessage(combinedText);
+                }}
+              />
             </div>
           ))}
+
+          {pendingStateVerification && (
+            <StateVerificationPrompt
+              onSubmit={(stateName) => {
+                setPendingStateVerification(null)
+                sendMessage(`My state is ${stateName}`)
+              }}
+              onSkip={async () => {
+                const data = pendingStateVerification
+                setPendingStateVerification(null)
+                
+                const agentText = String(data.response || "")
+                const nextPreferred = normalizeLanguageCode(
+                  data.preferred_language || preferredLanguage || data.language_detected
+                )
+                const agentMessage = appendMessage({
+                  role: "agent",
+                  text: agentText,
+                  ttsText: data.response_tts_text || agentText,
+                  shouldPlayTTS: data.should_play_tts !== false,
+                  language: data.response_language || nextPreferred || preferredLanguage || data.language_detected || "en-IN",
+                  contextComplete: Boolean(data.context_complete),
+                  schemesFound: Number(data.schemes_found || 0),
+                })
+                await speakMessageOnce(agentMessage)
+              }}
+            />
+          )}
 
           {loading && <TypingIndicator />}
 
@@ -317,6 +361,91 @@ function HeaderButton({ active = false, onClick, children }) {
     >
       {children}
     </button>
+  )
+}
+
+function StateVerificationPrompt({ onSubmit, onSkip }) {
+  const [stateInput, setStateInput] = useState("")
+
+  return (
+    <div
+      style={{
+        background: "#fffdf5",
+        border: "1px solid #ead7b6",
+        borderRadius: 18,
+        padding: 18,
+        marginBottom: 16,
+      }}
+      className="msg-animate"
+    >
+      <div
+        style={{
+          fontFamily: "'Libre Baskerville', Georgia, serif",
+          fontSize: 15,
+          fontWeight: 700,
+          color: "#1c1917",
+          marginBottom: 12,
+        }}
+      >
+        Some schemes I found are state-specific. Which state are you in?
+      </div>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <input
+          type="text"
+          value={stateInput}
+          onChange={(e) => setStateInput(e.target.value)}
+          placeholder="Enter your state (e.g. Maharashtra)"
+          style={{
+            flex: 1,
+            minWidth: 200,
+            padding: "10px 14px",
+            border: "1px solid #e7d5b0",
+            background: "#ffffff",
+            color: "#1c1917",
+            borderRadius: 8,
+            fontSize: 14,
+            fontFamily: "'Libre Baskerville', Georgia, serif",
+            outline: "none",
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && stateInput.trim()) {
+              onSubmit(stateInput.trim())
+            }
+          }}
+        />
+        <button
+          onClick={() => onSubmit(stateInput.trim())}
+          disabled={!stateInput.trim()}
+          style={{
+            background: stateInput.trim() ? "#92400e" : "#e7d5b0",
+            color: stateInput.trim() ? "#fef3c7" : "#a8a29e",
+            border: "none",
+            borderRadius: 8,
+            padding: "8px 16px",
+            cursor: stateInput.trim() ? "pointer" : "not-allowed",
+            fontWeight: 700,
+            fontFamily: "'IBM Plex Mono', monospace",
+          }}
+        >
+          Submit
+        </button>
+        <button
+          onClick={onSkip}
+          style={{
+            background: "transparent",
+            color: "#78716c",
+            border: "1px solid #d6d3d1",
+            borderRadius: 8,
+            padding: "8px 16px",
+            cursor: "pointer",
+            fontWeight: 700,
+            fontFamily: "'IBM Plex Mono', monospace",
+          }}
+        >
+          Skip
+        </button>
+      </div>
+    </div>
   )
 }
 

@@ -188,3 +188,45 @@ def transcribe_audio_base64(
         "language_code": getattr(response, "language_code", None) or normalized_language,
         "language_probability": getattr(response, "language_probability", None),
     }
+
+
+def translate_to_english(text: str) -> str:
+    """
+    Detects language of the text. If it is not English (en-IN or en),
+    translates it to English (en-IN) and returns it.
+    Falls back to original text on any failure.
+    """
+    if not text or not text.strip():
+        return text
+
+    api_key = os.getenv("SARVAM_API_KEY")
+    if not api_key:
+        return text
+
+    try:
+        client = get_sarvam_client()
+        # 1. Detect language
+        detect_resp = client.text.identify_language(input=text)
+        detected_lang = getattr(detect_resp, "language_code", None)
+        
+        # 2. Short-circuit: if detected language is English, return original
+        if detected_lang and (detected_lang == "en-IN" or detected_lang.lower().startswith("en")):
+            return text
+            
+        # 3. Non-English: translate to English (en-IN)
+        if detected_lang:
+            translate_resp = client.text.translate(
+                input=text,
+                source_language_code=detected_lang,
+                target_language_code="en-IN",
+                model="sarvam-translate:v1"
+            )
+            translated_text = getattr(translate_resp, "translated_text", None)
+            if translated_text:
+                return translated_text
+    except Exception as e:
+        # Graceful fallback: return original text
+        print(f"Sarvam translation pre-processing failed: {e}")
+        
+    return text
+

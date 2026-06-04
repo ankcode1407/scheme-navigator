@@ -1,4 +1,4 @@
-export const API = import.meta.env.VITE_API_URL || ""
+export const API = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"
 
 export const LANGUAGE_OPTIONS = [
   { code: "en-IN", label: "English", hint: "Talk in English" },
@@ -135,5 +135,21 @@ export function fileToBase64(file) {
     }
     reader.onerror = reject
     reader.readAsDataURL(file)
+  })
+}
+
+export async function postFeedback({ sessionId, schemeId, interactionType }) {
+  if (!sessionId || !schemeId || !interactionType) return
+
+  // Fire and forget, catch and swallow errors, log to console
+  fetch(`${API}/api/sessions/${sessionId}/feedback`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      scheme_id: schemeId,
+      interaction_type: interactionType,
+    }),
+  }).catch((err) => {
+    console.error("Failed to post feedback:", err)
   })
 }

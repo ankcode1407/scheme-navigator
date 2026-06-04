@@ -28,6 +28,7 @@ from app.agent.state import AgentState
 load_dotenv()
 
 _groq_client: Groq | None = None
+_groq_client_no_retries: Groq | None = None
 
 
 def get_groq_client() -> Groq:
@@ -38,6 +39,16 @@ def get_groq_client() -> Groq:
             raise RuntimeError("GROQ_API_KEY is not configured")
         _groq_client = Groq(api_key=api_key)
     return _groq_client
+
+
+def get_groq_client_no_retries() -> Groq:
+    global _groq_client_no_retries
+    if _groq_client_no_retries is None:
+        api_key = os.getenv("GROQ_API_KEY")
+        if not api_key:
+            raise RuntimeError("GROQ_API_KEY is not configured")
+        _groq_client_no_retries = Groq(api_key=api_key, max_retries=0)
+    return _groq_client_no_retries
 
 
 def safe_json_loads(raw: str) -> dict[str, Any]:

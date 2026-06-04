@@ -27,6 +27,23 @@ def _normalize_scheme(raw: dict[str, Any]) -> dict[str, Any]:
     if scheme.get("eligibility") is None:
         scheme["eligibility"] = {}
 
+    # Unify text fields: score_scheme reads brief_description and tags
+    # but schemes_full.json stores content in description/source_text
+    if not scheme.get("brief_description"):
+        scheme["brief_description"] = (
+            scheme.get("description") or scheme.get("source_text") or ""
+        )
+
+    # Normalize category: split concatenated string into searchable tokens
+    # "social_welfare_and_empowerment" → ["social welfare", "empowerment"]
+    if isinstance(scheme.get("category"), list) and len(scheme["category"]) == 1:
+        raw_cat = scheme["category"][0]
+        if "_" in raw_cat and " " not in raw_cat:
+            scheme["category"] = [raw_cat.replace("_", " ")]
+    elif isinstance(scheme.get("category"), str):
+        raw_cat = scheme["category"]
+        scheme["category"] = [raw_cat.replace("_", " ")]
+
     if scheme.get("documents_required") is None:
         scheme["documents_required"] = []
 

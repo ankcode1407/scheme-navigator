@@ -1,0 +1,274 @@
+[
+  {
+    "scheme_id": "ifs",
+    "scheme_name": "Integrated Fisheries Scheme",
+    "original_description": "The \"Integrated Fisheries Scheme\" by the Fisheries Division, Government of Jharkhand, aims to promote fish-duck farming and increase fish farmers' income. The scheme provides financial assistance of up to 80% for eligible SC/ST/women beneficiaries and 70% for others.",
+    "extracted_eligibility": {
+      "age_min": null,
+      "age_max": null,
+      "caste": [
+        "SC",
+        "ST"
+      ],
+      "gender": null,
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "dp-f",
+    "scheme_name": "Teelu Rauteli Pension Scheme",
+    "original_description": "The scheme aims to provide a monthly pension of ₹1,200/- to male and female individuals above 18 years of age who have incurred a partial disability of 20% to 40% while performing agricultural activities.",
+    "extracted_eligibility": {
+      "age_min": 18,
+      "age_max": null,
+      "caste": null,
+      "gender": null,
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "mns",
+    "scheme_name": "Micro Nutrient Spray",
+    "original_description": "The “Micro Nutrient Spray” scheme provides a 50% subsidy or ₹70/- per hectare to eligible farmers, with a focus on ensuring benefits to SC/ST and women farmers.\n",
+    "extracted_eligibility": {
+      "age_min": null,
+      "age_max": null,
+      "caste": [
+        "SC",
+        "ST"
+      ],
+      "gender": "female",
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "as-sep",
+    "scheme_name": "Annapurna Scheme: Seed Exchange Programme",
+    "original_description": "The scheme aims to increase agricultural productivity and production for SC/ST farmers who cannot afford improved seeds. It provides high-yielding improved seed varieties, up to one hectare, in exchange for existing crop or seed, backed by a 75% subsidy with a maximum limit of ₹1,500/-.",
+    "extracted_eligibility": {
+      "age_min": null,
+      "age_max": null,
+      "caste": [
+        "SC",
+        "ST"
+      ],
+      "gender": null,
+      "max_annual_income": 1500
+    }
+  },
+  {
+    "scheme_id": "smamuk",
+    "scheme_name": "Sub-Mission on Agricultural Mechanization - Uttarakhand",
+    "original_description": "The scheme aims to encourage farm mechanization purchasing and providing 50% subsidy/financial assistance to SC/ST, small and marginal, and women farmers (of all categories), while 40% subsidy/financial assistance is provided to other (large) farmers. ",
+    "extracted_eligibility": {
+      "age_min": null,
+      "age_max": null,
+      "caste": [
+        "SC",
+        "ST"
+      ],
+      "gender": "female",
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "mpds",
+    "scheme_name": "Male Pig Distribution Scheme",
+    "original_description": "The \"Male Pig Distribution Scheme\", under the Animal Husbandry Department, Government of  Chhattisgarh, provides a grant to beneficiaries from the SC/ST category for purchasing one male pig of an improved breed (Middle White Yorkshire).",
+    "extracted_eligibility": {
+      "age_min": null,
+      "age_max": null,
+      "caste": [
+        "SC",
+        "ST"
+      ],
+      "gender": null,
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "gpyuk",
+    "scheme_name": "Gau Palan Yojana",
+    "original_description": "The scheme aims to promote cow rearing among eligible Scheduled Caste and Scheduled Tribe beneficiaries, enhancing their livelihood and income generation by providing financial support for cow rearing units.",
+    "extracted_eligibility": {
+      "age_min": null,
+      "age_max": null,
+      "caste": [
+        "SC",
+        "ST"
+      ],
+      "gender": null,
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "apclfdf",
+    "scheme_name": "Assistance Program for the Cultivation of Lotus Fruit (Dragon Fruit)",
+    "original_description": "The scheme provides financial assistance to farmers to support the cultivation of dragon fruit (lotus fruit), with higher benefits for SC/ST and priority for small-scale and women farmers.",
+    "extracted_eligibility": {
+      "age_min": null,
+      "age_max": null,
+      "caste": [
+        "SC",
+        "ST"
+      ],
+      "gender": null,
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "pmmsyrvguj",
+    "scheme_name": "PMMSY: Refrigerated vehicles - Gujarat",
+    "original_description": "The scheme aims to provide financial assistance for the purchase of vehicles. Through this scheme, subsidy benefits are provided to general, women, and SC/ST category beneficiaries.",
+    "extracted_eligibility": {
+      "age_min": null,
+      "age_max": null,
+      "caste": [
+        "SC",
+        "ST"
+      ],
+      "gender": "female",
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "pofs",
+    "scheme_name": "Production of Foundation Seeds",
+    "original_description": "The \"Production of Foundation Seeds\" scheme, provides subsidies to farmers cultivating seed farms for pulses, offering specific benefits to SC/ST farmers and farm women.\n",
+    "extracted_eligibility": {
+      "age_min": null,
+      "age_max": null,
+      "caste": [
+        "SC",
+        "ST"
+      ],
+      "gender": "female",
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "aispmis",
+    "scheme_name": "Assistance for Installation of Sprinkler / Drip Micro Irrigation Systems",
+    "original_description": "Through this scheme, the Marginal Farmers, Small farmers, Scheduled Caste/ Schedule Tribe Farmers, Women Farmers, Big Farmers and Institutions are provided with a subsidy on the total cost or ₹ 25,000/‐ per hectare whichever is less for the installation of Sprinkler / Drip Micro Irrigation Systems.",
+    "extracted_eligibility": {
+      "age_min": null,
+      "age_max": null,
+      "caste": [
+        "SC",
+        "ST"
+      ],
+      "gender": null,
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "safpofn",
+    "scheme_name": "Intensive Fisheries Development Programme - Subsidy on Purchase of Fishing Nets (Scheduled Caste)",
+    "original_description": "The scheme aims to provide financial assistance to individuals from Scheduled Caste families engaged in fishing activities for the purchase of fishing nets. Under this scheme, a 60% subsidy or up to ₹24,000, on the purchase of fishing nets worth ₹40,000/- will be provided to eligible beneficiaries.",
+    "extracted_eligibility": {
+      "age_min": null,
+      "age_max": null,
+      "caste": [
+        "SC"
+      ],
+      "gender": null,
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "ascfst",
+    "scheme_name": "Assistance to Scheduled Caste Farmers for Sinking Tubewell",
+    "original_description": "“Assistance to Scheduled Caste Farmers for Sinking Tubewell\" was launched by Dept of Agriculture and Farmer's Welfare, UT of Puducherry. Through this scheme, the farmers from the SC Category are provided with a grant of 90% subsidy towards the construction of tubewell/filter points per individual.",
+    "extracted_eligibility": {
+      "age_min": null,
+      "age_max": null,
+      "caste": [
+        "SC"
+      ],
+      "gender": null,
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "faoapstbc",
+    "scheme_name": "Financial Assistance to Old Age Pensioner Suffering From TB/ Cancer",
+    "original_description": "“Financial Assistance to Old Age Pensioner Suffering From TB/ Cancer” by the Dept of Women & Child Development, Govt of Puducherry, was introduced to extend a helping hand by way of financial assistance to Old Age/Destitute Pensioners who are suffering from TB/Cancer to meet the medical expenses.",
+    "extracted_eligibility": {
+      "age_min": null,
+      "age_max": null,
+      "caste": null,
+      "gender": null,
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "oasas",
+    "scheme_name": "Old Age Samman Allowance",
+    "original_description": "\"Old Age Samman Allowance\" is a social security scheme implemented by the Department of Social Justice and Empowerment, Government of Haryana. The scheme provides a pension of ₹ 3000/month to senior citizens (60 years of age or older) who are unable to sustain themselves with their own resource",
+    "extracted_eligibility": {
+      "age_min": 60,
+      "age_max": null,
+      "caste": null,
+      "gender": null,
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "sse25rbusc",
+    "scheme_name": "Subsidy Scheme On Establishment Of 25 R.I.R. Birds’ Unit For Scheduled Caste",
+    "original_description": "The scheme “Subsidy Scheme on Establishment of 25 R.I.R. Birds’ unit for Scheduled Caste” was launched by the Department of Agriculture, Farmers Welfare & Co-operation, Government of Gujarat to provide employment, nutritious diet and to raise the income of Schedule Caste People of the society.",
+    "extracted_eligibility": {
+      "age_min": null,
+      "age_max": null,
+      "caste": [
+        "SC"
+      ],
+      "gender": null,
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "seh-tmdummapuy",
+    "scheme_name": "Scheme for Establishment of Hi-Tech and Mini Dairy Units under Mukhya Mantri Antyodaya Parivaar Utthan Yojana",
+    "original_description": "Under this scheme, a resident of Haryana who is between 18 and 60 years of age can avail a 25% subsidy on the cost of two milch animals. The subsidy can be availed as a loan for the purchase of these milch animals by the beneficiary for the establishment of dairy units with two milch animals.",
+    "extracted_eligibility": {
+      "age_min": 18,
+      "age_max": 60,
+      "caste": null,
+      "gender": null,
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "ebfuk",
+    "scheme_name": "Establishment of Broiler Farms",
+    "original_description": "The scheme aims to promote commercial broiler rearing by providing financial assistance in the form of subsidies for poultry rearing and infrastructure development, thereby enhancing income generation and employment opportunities, especially for women and self-help groups (SHGs).",
+    "extracted_eligibility": {
+      "age_min": null,
+      "age_max": null,
+      "caste": null,
+      "gender": null,
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "sspftsc",
+    "scheme_name": "Stipend Scheme For Poultry Farming Training For Schedule Caste",
+    "original_description": "The scheme “Stipend Scheme for Poultry Farming Training for Schedule Caste” was launched by the Department of Agriculture, Farmers Welfare & Co-operation, Government of Gujarat to raise the income of poultry farmers of Scheduled Caste by scientific poultry farming training. ",
+    "extracted_eligibility": {
+      "age_min": null,
+      "age_max": null,
+      "caste": [
+        "SC"
+      ],
+      "gender": null,
+      "max_annual_income": null
+    }
+  },
+  {
+    "scheme_id": "gusgbl",
+    "scheme_name": "Goat Unit Scheme On Grants And Bank Loans",
+    "original_description": "The scheme provides financial support through grants and bank loans to farmers to purchase (10+1) goat units for milk and meat production. The scheme covers a 40% subsidy for general applicants and 60% for SC/ST beneficiaries, based on a total unit cost of ₹77,456/-.",
+    "error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.1-8b-instant` in organization `org_01kpsxden6f7msqpz09dtvgx5s` service tier `on_demand` on tokens per minute (TPM): Limit 6000, Used 5758, Requested 761. Please try again in 5.189999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+  }
+]

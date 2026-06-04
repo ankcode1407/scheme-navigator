@@ -302,14 +302,64 @@ def normalize_user_context(context: dict) -> dict:
         family_size = normalize_number(ctx.get("family_size"))
         ctx["family_size"] = int(family_size) if family_size is not None else None
 
+    if "age" in ctx:
+        ctx["age"] = normalize_number(ctx.get("age"))
+
+    if "income" in ctx:
+        ctx["income"] = normalize_number(ctx.get("income"))
+
+    if "gender" in ctx and ctx.get("gender"):
+        ctx["gender"] = str(ctx.get("gender")).strip().lower()
+
+    if "caste" in ctx and ctx.get("caste"):
+        ctx["caste"] = normalize_caste(ctx.get("caste"))
+
+    if "marital_status" in ctx and ctx.get("marital_status"):
+        ctx["marital_status"] = str(ctx.get("marital_status")).strip().lower()
+
+    if "bpl_status" in ctx:
+        ctx["bpl_status"] = normalize_boolish(ctx.get("bpl_status"))
+
+    if "disability_status" in ctx:
+        ctx["disability_status"] = normalize_boolish(ctx.get("disability_status"))
+
+    # Sync and normalize land fields
+    if "land_owned" in ctx:
+        ctx["land_owned"] = normalize_number(ctx.get("land_owned"))
+    if "land_owned" in ctx and ctx["land_owned"] is not None:
+        ctx["land_hectares"] = ctx["land_owned"]
+    elif "land_hectares" in ctx and ctx["land_hectares"] is not None:
+        ctx["land_owned"] = ctx["land_hectares"]
+
+    # Sync and normalize Aadhaar fields
+    if "aadhaar_linked" in ctx:
+        ctx["aadhaar_linked"] = normalize_boolish(ctx.get("aadhaar_linked"))
     if "has_aadhaar" in ctx:
         ctx["has_aadhaar"] = normalize_boolish(ctx.get("has_aadhaar"))
+    if "aadhaar_linked" in ctx and ctx["aadhaar_linked"] is not None:
+        ctx["has_aadhaar"] = ctx["aadhaar_linked"]
+    elif "has_aadhaar" in ctx and ctx["has_aadhaar"] is not None:
+        ctx["aadhaar_linked"] = ctx["has_aadhaar"]
 
+    # Sync and normalize bank account fields
+    if "bank_account" in ctx:
+        ctx["bank_account"] = normalize_boolish(ctx.get("bank_account"))
     if "has_bank_account" in ctx:
         ctx["has_bank_account"] = normalize_boolish(ctx.get("has_bank_account"))
+    if "bank_account" in ctx and ctx["bank_account"] is not None:
+        ctx["has_bank_account"] = ctx["bank_account"]
+    elif "has_bank_account" in ctx and ctx["has_bank_account"] is not None:
+        ctx["bank_account"] = ctx["has_bank_account"]
 
+    # Sync and normalize ration card fields
+    if "ration_card" in ctx:
+        ctx["ration_card"] = normalize_boolish(ctx.get("ration_card"))
     if "has_ration_card" in ctx:
         ctx["has_ration_card"] = normalize_boolish(ctx.get("has_ration_card"))
+    if "ration_card" in ctx and ctx["ration_card"] is not None:
+        ctx["has_ration_card"] = ctx["ration_card"]
+    elif "has_ration_card" in ctx and ctx["has_ration_card"] is not None:
+        ctx["ration_card"] = ctx["has_ration_card"]
 
     if not ctx.get("problem_statement"):
         inferred = infer_problem_statement_from_context(ctx)
@@ -369,3 +419,18 @@ def normalize_case_context(context: dict) -> dict:
         ctx["office_type"] = str(ctx["office_type"]).strip().lower()
 
     return ctx
+
+
+def normalize_caste(caste_str: str | None) -> str:
+    if not caste_str:
+        return "GENERAL"
+    c_clean = str(caste_str).strip().upper()
+    if "SCHEDULED CASTE" in c_clean or c_clean == "SC":
+        return "SC"
+    if "SCHEDULED TRIBE" in c_clean or c_clean == "ST":
+        return "ST"
+    if "OBC" in c_clean or "OTHER BACKWARD" in c_clean:
+        return "OBC"
+    if "GEN" in c_clean or "GENERAL" in c_clean:
+        return "GENERAL"
+    return c_clean

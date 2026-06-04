@@ -1,6 +1,36 @@
 import SchemeCard from "./SchemeCard"
 import VisitSlip from "./VisitSlip"
 
+function parseOnboarding(text) {
+  const content = String(text || "").trim();
+  if (!content.startsWith("{") || !content.endsWith("}")) {
+    return null;
+  }
+  try {
+    const parsed = JSON.parse(content);
+    if (parsed && parsed.type === "onboarding") {
+      return parsed;
+    }
+  } catch (e) {
+    // ignore
+  }
+  return null;
+}
+
+function parseClarificationChips(text) {
+  const content = String(text || "").trim();
+  if (!content.includes("[CLARIFICATION_CHIPS]:")) {
+    return null;
+  }
+  const parts = content.split("[CLARIFICATION_CHIPS]:");
+  const intro = parts[0].trim();
+  const chips = parts[1]
+    .split("|")
+    .map((c) => c.trim())
+    .filter(Boolean);
+  return { intro, chips };
+}
+
 function parseSchemeBlocks(text) {
   const content = String(text || "").trim()
   if (!content) return { type: "text", content: "" }
@@ -98,8 +128,10 @@ export function TypingIndicator() {
   )
 }
 
-export default function MessageBubble({ msg }) {
+export default function MessageBubble({ msg, sessionId, onSelectChip }) {
+  const onboarding = parseOnboarding(msg.text)
   const parsed = parseSchemeBlocks(msg.text)
+  const clarification = parseClarificationChips(msg.text)
 
   if (msg.role === "user") {
     return (
@@ -126,6 +158,128 @@ export default function MessageBubble({ msg }) {
 
   const visitSlip = parseVisitSlip(msg.text)
 
+  if (onboarding) {
+    return (
+      <div style={{ display: "flex", gap: 10, marginBottom: 18, alignItems: "flex-start" }}>
+        <Avatar />
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div
+            style={{
+              background: "white",
+              border: "1px solid #e7d5b0",
+              borderRadius: "6px 18px 18px 18px",
+              padding: "12px 16px",
+              fontSize: 14,
+              lineHeight: 1.75,
+              color: "#292524",
+              fontFamily: "'Libre Baskerville', Georgia, serif",
+              maxWidth: "90%",
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.03)",
+              marginBottom: 12
+            }}
+          >
+            {onboarding.message}
+          </div>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
+            {onboarding.quick_options.map((option, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => onSelectChip && onSelectChip(option)}
+                style={{
+                  border: "1px solid #e7d5b0",
+                  background: "white",
+                  color: "#92400e",
+                  borderRadius: 999,
+                  padding: "8px 14px",
+                  cursor: "pointer",
+                  fontSize: 12,
+                  fontFamily: "'Libre Baskerville', Georgia, serif",
+                  fontWeight: 700,
+                  transition: "all 0.15s",
+                  boxShadow: "0 2px 8px rgba(180,120,0,0.05)"
+                }}
+                onMouseEnter={(event) => {
+                  event.currentTarget.style.background = "#fef3c7"
+                  event.currentTarget.style.borderColor = "#d4a843"
+                }}
+                onMouseLeave={(event) => {
+                  event.currentTarget.style.background = "white"
+                  event.currentTarget.style.borderColor = "#e7d5b0"
+                }}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (clarification) {
+    return (
+      <div style={{ display: "flex", gap: 10, marginBottom: 18, alignItems: "flex-start" }}>
+        <Avatar />
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div
+            style={{
+              background: "white",
+              border: "1px solid #e7d5b0",
+              borderRadius: "6px 18px 18px 18px",
+              padding: "12px 16px",
+              fontSize: 14,
+              lineHeight: 1.75,
+              color: "#292524",
+              fontFamily: "'Libre Baskerville', Georgia, serif",
+              maxWidth: "90%",
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.03)",
+              marginBottom: 12
+            }}
+          >
+            {clarification.intro}
+          </div>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
+            {clarification.chips.map((chip, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => onSelectChip && onSelectChip(chip)}
+                style={{
+                  border: "1px solid #e7d5b0",
+                  background: "white",
+                  color: "#92400e",
+                  borderRadius: 999,
+                  padding: "8px 14px",
+                  cursor: "pointer",
+                  fontSize: 12,
+                  fontFamily: "'Libre Baskerville', Georgia, serif",
+                  fontWeight: 700,
+                  transition: "all 0.15s",
+                  boxShadow: "0 2px 8px rgba(180,120,0,0.05)"
+                }}
+                onMouseEnter={(event) => {
+                  event.currentTarget.style.background = "#fef3c7"
+                  event.currentTarget.style.borderColor = "#d4a843"
+                }}
+                onMouseLeave={(event) => {
+                  event.currentTarget.style.background = "white"
+                  event.currentTarget.style.borderColor = "#e7d5b0"
+                }}
+              >
+                {chip}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div style={{ display: "flex", gap: 10, marginBottom: 18, alignItems: "flex-start" }}>
       <Avatar />
@@ -150,7 +304,7 @@ export default function MessageBubble({ msg }) {
               </div>
             )}
             {parsed.schemes.map((raw, index) => (
-              <SchemeCard key={index} raw={raw} index={index} />
+              <SchemeCard key={index} raw={raw} index={index} sessionId={sessionId} />
             ))}
           </div>
         ) : (

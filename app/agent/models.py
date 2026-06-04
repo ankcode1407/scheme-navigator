@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 from typing import Any, Optional, Literal
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator, ConfigDict
 
 
 class UserContextModel(BaseModel):
+    model_config = ConfigDict(extra='ignore')
+
     problem_statement: Optional[str] = None
     problem_category: Optional[str] = None
     specific_problem: Optional[str] = None
@@ -20,6 +22,26 @@ class UserContextModel(BaseModel):
     has_aadhaar: Optional[bool] = None
     has_bank_account: Optional[bool] = None
     has_ration_card: Optional[bool] = None
+
+    # Missing fields from extracted citizen context
+    age: Optional[float] = None
+    gender: Optional[str] = None
+    caste: Optional[str] = None
+    income: Optional[float] = None
+    land_owned: Optional[float] = None
+    aadhaar_linked: Optional[bool] = None
+    bank_account: Optional[bool] = None
+    ration_card: Optional[bool] = None
+    bpl_status: Optional[bool] = None
+    disability_status: Optional[bool] = None
+    marital_status: Optional[str] = None
+
+    @model_validator(mode='before')
+    @classmethod
+    def normalize_income_field(cls, values):
+        if 'annual_income' in values and 'income' not in values:
+            values['income'] = values.pop('annual_income')
+        return values
 
 
 class CaseContextModel(BaseModel):
@@ -50,17 +72,28 @@ class SchemeCandidate(BaseModel):
     tags: list[str] = Field(default_factory=list)
     brief_description: str = ""
     close_date: Optional[str] = None
+    clarification_group: Optional[str] = None
+    clarification_question: Optional[str] = None
 
 
 class SchemeMatch(BaseModel):
     scheme_id: str = ""
     scheme_name: str = ""
-    confidence: Literal["HIGH", "LIKELY", "NEEDS_VERIFICATION"] = "NEEDS_VERIFICATION"
+    confidence: Literal["HIGH", "LIKELY", "NEEDS_VERIFICATION", "INELIGIBLE"] = "NEEDS_VERIFICATION"
     reason: str = ""
+    needs_state_verification: bool = False
+    
+    # --- New Eligibility Audit Fields ---
+    passed_criteria: list[str] = Field(default_factory=list)
+    failed_criteria: list[str] = Field(default_factory=list)
+    missing_data: list[str] = Field(default_factory=list)
+    
     documents_required: list[str] = Field(default_factory=list)
     action_steps: list[str] = Field(default_factory=list)
     portal: Optional[str] = None
     helpline: Optional[str] = None
+    clarification_group: Optional[str] = None
+    clarification_question: Optional[str] = None
 
 
 class ResponseEnvelope(BaseModel):
@@ -76,3 +109,4 @@ class ResponseEnvelope(BaseModel):
     user_context: Optional[dict[str, Any]] = None
     case_context: Optional[dict[str, Any]] = None
     problem_category: Optional[str] = None
+    needs_state_verification: bool = False

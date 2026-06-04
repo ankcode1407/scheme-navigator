@@ -20,6 +20,19 @@ class UserContext(TypedDict, total=False):
     has_bank_account: Optional[bool]
     has_ration_card: Optional[bool]
 
+    # Missing fields from extracted citizen context
+    age: Optional[float]
+    gender: Optional[str]
+    caste: Optional[str]
+    income: Optional[float]
+    land_owned: Optional[float]
+    aadhaar_linked: Optional[bool]
+    bank_account: Optional[bool]
+    ration_card: Optional[bool]
+    bpl_status: Optional[bool]
+    disability_status: Optional[bool]
+    marital_status: Optional[str]
+
 
 class CaseContext(TypedDict, total=False):
     case_id: Optional[str]
@@ -40,6 +53,10 @@ class SchemeMatch(TypedDict, total=False):
     scheme_name: str
     confidence: str
     reason: str
+    needs_state_verification: bool
+    passed_criteria: List[str]
+    failed_criteria: List[str]
+    missing_data: List[str]
     documents_required: List[str]
     action_steps: List[str]
     portal: Optional[str]
@@ -72,5 +89,6 @@ class AgentState(TypedDict, total=False):
     response_language: str              # Added this line
     response_source_language: str       # Added this line
     should_play_tts: bool
+    reranker_mode: Optional[str]        # Added this line
 
     stop_after_language_gate: bool
